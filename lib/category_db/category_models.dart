@@ -1,0 +1,35 @@
+import 'package:hive_flutter/adapters.dart';
+part 'category_models.g.dart';
+
+@HiveType(typeId: 1)
+enum Categorytype {
+
+  @HiveField(0)
+  income,
+
+  @HiveField(1)
+  expense,
+}
+
+@HiveType(typeId: 2)
+class CategoryModel {
+
+  @HiveField(0)
+  final int id;
+
+  @HiveField(1)
+  final String category;
+
+  @HiveField(2)
+  final Categorytype type;
+
+  @HiveField(3)
+  final bool isDeleted;
+
+  CategoryModel({
+    required this.id,
+    required this.category,
+    required this.type,
+    this.isDeleted=false,
+  });
+}
