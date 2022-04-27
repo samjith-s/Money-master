@@ -7,15 +7,15 @@ String userDbName = 'user_database';
 
 Future<void> addUser(UserModel value) async {
   final userDb = await Hive.openBox<UserModel>(userDbName);
-  userDb.put(value.mobile[0], value);
+  userDb.put(9, value);
+  getUserDetials();
 }
 
 Future<void> getUserDetials() async {
   final userDb = await Hive.openBox<UserModel>(userDbName);
   if (userDb.values.isNotEmpty) {
-  userDetailsNotifier.value = userDb.values.first;
-  userDetailsNotifier.notifyListeners();
-
+    userDetailsNotifier.value = userDb.values.first;
+    userDetailsNotifier.notifyListeners();
   }
 }
 

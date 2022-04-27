@@ -4,13 +4,13 @@ import '../../category_db/category_models.dart';
 import '../../value_notifiers.dart';
 import 'category_main_page.dart';
 
-showIncomeAddPopup(context, {int? id}) {
+showIncomeAddPopup(context, {CategoryModel? model}) {
   myPopUp(
     context: context,
     controller: incomeController,
     onPressed: () {
       CategoryModel obj = CategoryModel(
-        id: id ?? DateTime.now().microsecond,
+        id: model == null ? DateTime.now().microsecond : model.id,
         category: incomeController.text,
         type: Categorytype.income,
       );
@@ -18,7 +18,7 @@ showIncomeAddPopup(context, {int? id}) {
       Navigator.of(context).pop();
       incomeController.clear();
     },
-    id: id,
+    model: model,
   );
 }
 
@@ -26,12 +26,12 @@ Future<dynamic> myPopUp(
     {required controller,
     required void Function() onPressed,
     required context,
-    int? id}) {
+    CategoryModel? model}) {
   return showDialog(
     context: context,
     builder: (ctx) {
       return CategoryAlertDialog(
-        id: id,
+        model: model,
         controller: controller,
         onpressed: onPressed,
       );
@@ -42,12 +42,12 @@ Future<dynamic> myPopUp(
 class CategoryAlertDialog extends StatefulWidget {
   final TextEditingController controller;
   final void Function() onpressed;
-  final int? id;
+  final CategoryModel? model;
   const CategoryAlertDialog({
     Key? key,
     required this.controller,
     required this.onpressed,
-    this.id,
+    this.model,
   }) : super(key: key);
 
   @override
@@ -64,6 +64,7 @@ class _CategoryAlertDialogState extends State<CategoryAlertDialog> {
         child: Column(
           children: [
             TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               validator: ((value) {
                 if (value!.isEmpty) {
                   return 'Enter category name';
@@ -121,7 +122,7 @@ class _CategoryAlertDialogState extends State<CategoryAlertDialog> {
                 }
                 widget.onpressed();
               },
-              child: widget.id == null
+              child: widget.model == null
                   ? const Text(
                       'Add',
                       style: TextStyle(color: Colors.black),
@@ -141,19 +142,19 @@ class _CategoryAlertDialogState extends State<CategoryAlertDialog> {
   }
 }
 
-showExpenseAddPopup(context, {int? id}) {
+showExpenseAddPopup(context, {CategoryModel? model}) {
   myPopUp(
     context: context,
     controller: expenseController,
     onPressed: () {
       CategoryModel obj = CategoryModel(
-          id: id ?? DateTime.now().millisecond,
+          id: model == null ? DateTime.now().millisecond : model.id,
           category: expenseController.text,
           type: Categorytype.expense);
       CategoryDb.instance.addCategory(obj);
       Navigator.of(context).pop();
       expenseController.clear();
     },
-    id: id,
+    model: model,
   );
 }

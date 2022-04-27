@@ -1,13 +1,18 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:money_manager/config/constant_colors.dart';
+import 'package:money_manager/screens/Statiticsscreen/pie_chart_functions.dart';
 import 'package:money_manager/screens/Statiticsscreen/statitics_widgets.dart';
 import 'package:money_manager/common_widgets.dart';
+import 'package:money_manager/value_notifiers.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../transaction_db/transaction_db_functions.dart';
+import '../../transaction_db/transaction_db_model.dart';
 
 TextStyle constStyle = const TextStyle(
     color: appWhite,
-    fontFamily: 'Roboto',
+    fontFamily: 'AnticSlab',
     fontSize: 18,
     fontWeight: FontWeight.w700);
 
@@ -30,176 +35,193 @@ class _StatiticsPageState extends State<StatiticsPage> {
         boxShadow: const [
           BoxShadow(color: Colors.black, spreadRadius: 2, offset: Offset(3, 3))
         ]);
-    return SafeArea(
-        child: ListView(children: [
-      CustomAppBar(title: 'Statitics'),
-      Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Container(
-              width: 100.w - 30,
-              height: 100.w - 36.5,
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  Row(
+    return WillPopScope(
+      child: SafeArea(
+        child: ValueListenableBuilder(
+          valueListenable: transactionListNotifier,
+          builder: (BuildContext ctx, List<TransactionModel> transactions,
+              Widget? _) {
+            return ListView(
+              children: [
+                const CustomAppBar(title: 'Statitics'),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
                     children: [
-                      Text('Expense structure', style: constStyle),
-                      const Icon(
-                        Icons.more_vert_outlined,
-                        color: appWhite,
-                      )
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  ),
-                  sizedBox10,
-                  const Text(
-                    'Last 30 Days',
-                    style: TextStyle(color: appWhite),
-                  ),
-                  const SizedBox(height: 3.5),
-                  Text(
-                    '₹ 6000',
-                    style: constStyle,
-                  ),
-                  Align(
-                    child: SizedBox(
-                      width: 195,
-                      height: 195,
-                      child: PieChart(
-                        PieChartData(
-                            //centerSpaceRadius: 60,
-                            sectionsSpace: 0,
-                            sections: [
-                              PieChartSectionData(
-                                value: 70,
-                                title: '',
-                                color: Color.fromARGB(255, 190, 68, 2),
+                      Container(
+                        width: 100.w - 30,
+                        //height: 100.w - 36.5,
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text('Expense structure', style: constStyle),
+                                // const Icon(
+                                //   Icons.more_vert_outlined,
+                                //   color: appWhite,
+                                // )
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            sizedBox10,
+                            ValueListenableBuilder(
+                              valueListenable: accountDetailsNotifier,
+                              builder: (BuildContext _ctx, AccountModel balance,
+                                  Widget? _) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      balance.period!,
+                                      style: const TextStyle(
+                                          color: appWhite,
+                                          fontFamily: 'Rokkitt-Thin',
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const SizedBox(height: 3.5),
+                                    Text(
+                                      '₹ ${balance.expense}',
+                                      style: rokitt,
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
+                            Align(
+                              child: SizedBox(
+                                width: 195,
+                                height: 195,
+                                child: PieChart(
+                                  //PieChartData(),
+                                  expensePieChartData(),
+                                  swapAnimationDuration:
+                                      const Duration(seconds: 8),
+                                ),
                               ),
-                              PieChartSectionData(
-                                value: 20,
-                                title: '',
-                                color: Colors.blue,
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              //color: appWhite,
+                              width: 100.w,
+                              height: 5.w,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (BuildContext _ctx, int _index) {
+                                  return Indicator(
+                                    color: _index < 9
+                                        ? expensecolor[_index]
+                                        : appBlue,
+                                    text: expenseClist[_index].catergory,
+                                  );
+                                },
+                                itemCount: expenseClist.length,
                               ),
-                              PieChartSectionData(
-                                value: 10,
-                                title: '',
-                                color: Colors.yellow,
+                            )
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
+                        decoration: boxDecoration,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 100.w - 30,
+                        //height: 100.w - 34.5,
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text('Income structure', style: constStyle),
+                                // const Icon(
+                                //   Icons.more_vert_outlined,
+                                //   color: appWhite,
+                                // )
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            ),
+                            sizedBox10,
+                            ValueListenableBuilder(
+                                valueListenable: accountDetailsNotifier,
+                                builder: (BuildContext _ctx,
+                                    AccountModel balance, Widget? _) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        balance.period!,
+                                        style: const TextStyle(
+                                            color: appWhite,
+                                            fontFamily: 'Rokkitt-Thin',
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(height: 3.5),
+                                      Text(
+                                        '₹ ${balance.income}',
+                                        style: rokitt,
+                                      )
+                                    ],
+                                  );
+                                }),
+                            Align(
+                              child: SizedBox(
+                                width: 195,
+                                height: 195,
+                                child: PieChart(
+                                  incomePieChartData(),
+                                  swapAnimationDuration:
+                                      const Duration(seconds: 8),
+                                ),
                               ),
-                            ]),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Indicator(
-                        color: Color.fromARGB(255, 241, 88, 5),
-                        text: 'Travel',
-                        isSquare: false,
-                      ),
-                      Indicator(
-                        color: Colors.blue,
-                        text: 'Party',
-                        isSquare: false,
-                      ),
-                      Indicator(
-                        color: Colors.yellow,
-                        text: 'Bills',
-                        isSquare: false,
-                      ),
-                    ],
-                  ),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.start,
-              ),
-              decoration: boxDecoration,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              width: 100.w - 30,
-              height: 100.w - 36.5,
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text('Income structure', style: constStyle),
-                      const Icon(
-                        Icons.more_vert_outlined,
-                        color: appWhite,
-                      )
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  ),
-                  sizedBox10,
-                  const Text(
-                    'Last 30 Days',
-                    style: TextStyle(color: appWhite),
-                  ),
-                  const SizedBox(height: 3.5),
-                  Text(
-                    '₹ 116000',
-                    style: constStyle,
-                  ),
-                  Align(
-                    child: SizedBox(
-                      width: 195,
-                      height: 195,
-                      child: PieChart(
-                        PieChartData(sectionsSpace: 0, sections: [
-                          PieChartSectionData(
-                            value: 70,
-                            title: '',
-                            color: Color.fromARGB(255, 20, 129, 25),
-                          ),
-                          PieChartSectionData(
-                            value: 20,
-                            title: '',
-                            color: Colors.blue,
-                          ),
-                          PieChartSectionData(
-                            value: 10,
-                            title: '',
-                            color: Colors.yellow,
-                          ),
-                        ]),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Indicator(
-                        color: Color.fromARGB(255, 5, 241, 17),
-                        text: 'Salary',
-                        isSquare: false,
-                      ),
-                      Indicator(
-                        color: Colors.blue,
-                        text: 'Commission',
-                        isSquare: false,
-                      ),
-                      Indicator(
-                        color: Colors.yellow,
-                        text: 'Rent',
-                        isSquare: false,
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              //color: appWhite,
+                              width: 100.w,
+                              height: 5.w,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (BuildContext _ctx, int _index) {
+                                  return Indicator(
+                                    color: _index < 9
+                                        ? incomecolor[_index]
+                                        : appBlue,
+                                    text: incomeClist[_index].catergory,
+                                  );
+                                },
+                                itemCount: incomeClist.length,
+                              ),
+                            )
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
+                        decoration: boxDecoration,
                       ),
                     ],
                   ),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.start,
-              ),
-              decoration: boxDecoration,
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
-    ]));
+      onWillPop: () {
+        selectedIndexNotifier.value = 0;
+        selectedIndexNotifier.notifyListeners();
+        return Future.value(false);
+      },
+    );
   }
 }
+
+var rokitt = const TextStyle(
+  color: appWhite,
+  fontFamily: 'Rokkitt-Thin',
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
+);

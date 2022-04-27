@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'category_db/category_models.dart';
 import 'screens/detailsPage/transaction_details_page.dart';
 import 'transaction_db/transaction_db_functions.dart';
 import 'transaction_db/transaction_db_model.dart';
 import 'user_db/user_model.dart';
+
+bool isNotificationOn = true;
 
 ValueNotifier<List<CategoryModel>> incomeListNotifier = ValueNotifier([]);
 ValueNotifier<List<CategoryModel>> expenseListNotifier = ValueNotifier([]);

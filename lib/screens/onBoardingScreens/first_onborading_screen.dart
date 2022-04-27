@@ -9,10 +9,9 @@ class MainOnBoarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('mainOnBoarding rebuilded');
     return Center(
       child: IntroductionScreen(
-        globalFooter:const StartNowButton(),
+        globalFooter: const StartNowButton(),
         pages: listPageViewModel,
         showNextButton: false,
         showDoneButton: false,
@@ -25,14 +24,14 @@ class MainOnBoarding extends StatelessWidget {
 final List<PageViewModel> listPageViewModel = [
   PageViewModel(
     title: "Track Your Spendings",
-    body: "Track and analiyse spendings immediately with our help.",
-    image: const OnboardinImage(path: 'assets/images/introimg.jpg'),
+    body: "Analiyze your transactions\naccurately and fast.",
+    image: const OnboardinImage(path: 'assets/images/notification.png'),
     decoration: pageDecoration,
   ),
   PageViewModel(
     title: "Graphical representations",
     body:
-        "Have a better understanding of your spendings with the \nhelp of charts.",
+        "Have a better understanding of your transactions with\nthe help of charts.",
     image: const OnboardinImage(
       path: 'assets/images/pichart.jpg',
     ),

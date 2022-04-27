@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../category_db/category_db_functions.dart';
 import '../../category_db/category_models.dart';
 import '../../config/constant_colors.dart';
 import '../../value_notifiers.dart';
@@ -19,23 +18,39 @@ class AddPageRadiobuttons extends StatelessWidget {
           children: [
             Row(
               children: [
-                Radio(
-                  value: Categorytype.income,
-                  groupValue: dropdownvalue,
-                  onChanged: (newvalue) {
-                    groupValueNotifier.value = Categorytype.income;
-                    dropdownValueNotifier.value =
-                        incomeListNotifier.value.isEmpty
-                            ? ''
-                            : incomeListNotifier.value[0].category;
-                  },
+                SizedBox(
+                  width: 25,
+                  child: Radio(
+                    fillColor: MaterialStateProperty.all(Colors.grey),
+                    value: Categorytype.income,
+                    groupValue: dropdownvalue,
+                    onChanged: (newvalue) {
+                      groupValueNotifier.value = Categorytype.income;
+                      dropdownValueNotifier.value =
+                          incomeListNotifier.value.isEmpty
+                              ? ''
+                              : incomeListNotifier.value[0].category;
+                    },
+                  ),
                 ),
-                const Text('Income')
+                const SizedBox(
+                  width: 10,
+                ),
+                const Text(
+                  'Income',
+                  style: TextStyle(
+                    fontFamily: 'Rokkitt-Thin',
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 234, 233, 233),
+                  ),
+                )
               ],
             ),
             Row(
               children: [
                 Radio(
+                  fillColor: MaterialStateProperty.all(Colors.grey),
                   value: Categorytype.expense,
                   groupValue: dropdownvalue,
                   onChanged: (newvalue) {
@@ -46,7 +61,15 @@ class AddPageRadiobuttons extends StatelessWidget {
                             : expenseListNotifier.value[0].category;
                   },
                 ),
-                const Text('Expense')
+                const Text(
+                  'Expense',
+                  style: TextStyle(
+                    fontFamily: 'Rokkitt-Thin',
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 234, 233, 233),
+                  ),
+                )
               ],
             )
           ],
@@ -81,10 +104,13 @@ class AddPageDropDown extends StatelessWidget {
                     builder: (BuildContext context, String dropdownvalue,
                         Widget? _) {
                       return DropdownButton<String>(
+                        borderRadius: BorderRadius.circular(10),
                         hint: Text(
                           hintText,
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 201, 200, 200)),
+                            color: Color.fromARGB(255, 111, 110, 110),
+                            fontFamily: 'AnticSlab',
+                          ),
                         ),
                         isDense: true,
                         value: dropdownvalue.isEmpty ? null : dropdownvalue,
@@ -100,13 +126,13 @@ class AddPageDropDown extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 17,
                           fontFamily: 'Roboto',
-                          color: Colors.black,
+                          color:Color.fromARGB(255, 234, 233, 233),
                         ),
-                        dropdownColor: appBlue,
+                        dropdownColor: const Color.fromARGB(255, 33, 35, 43),
                         icon: const Icon(
                           Icons.arrow_drop_down,
                           size: 30,
-                          color: appBlue,
+                          color: Colors.grey,
                         ),
                       );
                     },
@@ -118,7 +144,7 @@ class AddPageDropDown extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: appBlue,
+          color: Colors.grey,
         ),
       ),
     );
@@ -142,16 +168,20 @@ class AddPageNewCategory extends StatelessWidget {
         },
         icon: const Icon(
           Icons.category_outlined,
-          color: appBlue,
+          color: Color.fromARGB(255, 234, 233, 233),
           size: 15,
         ),
         label: const Text(
           'New Category',
-          style: TextStyle(fontSize: 15, fontFamily: 'Roboto', color: appBlue),
+          style: TextStyle(
+              fontSize: 15,
+              fontFamily: 'Rokkitt-Thin',
+              color: Color.fromARGB(255, 234, 233, 233),
+              fontWeight: FontWeight.w900),
         ),
         style: OutlinedButton.styleFrom(
           side: const BorderSide(
-            color: appBlue,
+            color:Colors.grey,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(7),
@@ -177,7 +207,7 @@ class AddPageDatePicker extends StatelessWidget {
             children: [
               const Icon(
                 Icons.calendar_month,
-                color: appBlue,
+                color: Color.fromARGB(255, 234, 233, 233),
               ),
               const SizedBox(
                 width: 8,
@@ -188,12 +218,12 @@ class AddPageDatePicker extends StatelessWidget {
                     fontFamily: 'Roboto',
                     fontSize: 19,
                     fontWeight: FontWeight.w500,
-                    color: appBlue),
+                    color: Color.fromARGB(255, 234, 233, 233)),
               ),
               const Icon(
                 Icons.arrow_drop_down,
                 size: 29,
-                color: appBlue,
+                color: Color.fromARGB(255, 234, 233, 233),
               )
             ],
           ),

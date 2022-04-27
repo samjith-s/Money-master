@@ -35,11 +35,7 @@ class StartNowButton extends StatelessWidget {
 
   void gotoLoginPage(context) {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) =>const StartScreen()),
+        MaterialPageRoute(builder: (context) => const StartScreen()),
         (route) => false);
-    // MaterialPageRoute(
-    //   builder: (context) => StartScreen(),
-    // ),
-    // );
   }
 }

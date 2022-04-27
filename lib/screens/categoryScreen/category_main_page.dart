@@ -23,162 +23,179 @@ class MainCatogoryPageState extends State<MainCatogoryPage> {
   int id = 0;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Column(
-      children: [
-        const CustomAppBar(title: 'Categories'),
-        Container(
-          margin: const EdgeInsets.only(top: 10, right: 15, bottom: 15),
-          width: 30.w,          alignment: AlignmentDirectional.center,
-          height: 40,
-          child: DropdownButton(
-            underline: const SizedBox(),
-            value: selectedValueNotifier.value,
-            dropdownColor: Colors.white,
-            focusColor: Colors.black,
-            style: const TextStyle(color: Colors.black),
-            items: const [
-              DropdownMenuItem(
-                child: Text(
-                  'Income',
+    return WillPopScope(
+      child: SafeArea(
+          child: Column(
+        children: [
+          const CustomAppBar(title: 'Categories'),
+          Container(
+            margin: const EdgeInsets.only(top: 15, right: 15, bottom: 15),
+            width: 30.w,
+            alignment: AlignmentDirectional.center,
+            height: 40,
+            child: DropdownButton(
+              underline: const SizedBox(),
+              value: selectedValueNotifier.value,
+              dropdownColor: Colors.white,
+              focusColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              items: const [
+                DropdownMenuItem(
+                  child: Text(
+                    'Income',
+                    style: TextStyle(fontFamily: 'AnticSlab'),
+                  ),
+                  value: 'Income',
                 ),
-                value: 'Income',
-              ),
-              DropdownMenuItem(
-                child: Text(
-                  'Expense',
-                ),
-                value: 'Expense',
-              )
-            ],
-            onChanged: (newValue) {
-              setState(
-                () {
-                  selectedValueNotifier.value = newValue.toString();
-                },
-              );
-            },
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: const Color(0xFFf79087),
-          ),
-        ),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: ValueListenableBuilder(
-              valueListenable: selectedValueNotifier.value == 'Income'
-                  ? incomeListNotifier
-                  : expenseListNotifier,
-              builder:
-                  (BuildContext ctx, List<CategoryModel> modelList, Widget? _) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext ctx, int idx) {
-                    var model = modelList[idx];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                model.category,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 17,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      selectedValueNotifier.value == 'Income'
-                                          ? showIncomeAddPopup(
-                                              context,
-                                              id: model.id,
-                                            )
-                                          : showExpenseAddPopup(
-                                              context,
-                                              id: model.id,
-                                            );
-                                    },
-                                    icon: const Icon(
-                                      Icons.edit_outlined,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 3,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (ctx) =>
-                                            CategoryDeleteConfirmationAlert(
-                                                model: model),
-                                      );
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete_outline,
-                                      color: expenseRed,
-                                    ),
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      height: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: const Color(0xFF272934),
-                      ),
-                    );
+                DropdownMenuItem(
+                  child: Text(
+                    'Expense',
+                    style: TextStyle(fontFamily: 'AnticSlab'),
+                  ),
+                  value: 'Expense',
+                )
+              ],
+              onChanged: (newValue) {
+                setState(
+                  () {
+                    selectedValueNotifier.value = newValue.toString();
                   },
-                  itemCount: selectedValueNotifier.value == 'Income'
-                      ? incomeListNotifier.value.length
-                      : expenseListNotifier.value.length,
                 );
               },
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 15, right: 15),
-          child: Container(
-            width: 50,
-            height: 50,
             decoration: BoxDecoration(
-                border: Border.all(color: appWhite, width: 1),
-                color: const Color(0xFFf79087),
-                borderRadius: BorderRadius.circular(40)),
-            child: IconButton(
-              icon: const Icon(
-                Icons.add,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {
-                selectedValueNotifier.value == 'Income'
-                    ? showIncomeAddPopup(context)
-                    : showExpenseAddPopup(context);
-              },
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.grey,
             ),
           ),
-        ),
-      ],
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    ));
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ValueListenableBuilder(
+                valueListenable: selectedValueNotifier.value == 'Income'
+                    ? incomeListNotifier
+                    : expenseListNotifier,
+                builder: (BuildContext ctx, List<CategoryModel> modelList,
+                    Widget? _) {
+                  return GridView.builder(
+                    itemCount: selectedValueNotifier.value == 'Income'
+                        ? incomeListNotifier.value.length
+                        : expenseListNotifier.value.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 5,
+                            childAspectRatio: 2.5),
+                    itemBuilder: (BuildContext contxt, int idx) {
+                      var model = modelList[idx];
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 7),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                model.category,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'AnticSlab',
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                            PopupMenuButton(
+                              child: Container(
+                                height: 36,
+                                width: 18,
+                                alignment: Alignment.centerRight,
+                                child: const Icon(
+                                  Icons.more_vert,
+                                  size: 20,
+                                  color: Color.fromARGB(255, 102, 101, 101),
+                                ),
+                              ),
+                              onSelected: (value) {
+                                value == 1
+                                    ? selectedValueNotifier.value == 'Income'
+                                        ? showIncomeAddPopup(
+                                            context,
+                                            model: model,
+                                          )
+                                        : showExpenseAddPopup(
+                                            context,
+                                            model: model,
+                                          )
+                                    : showDialog(
+                                        context: context,
+                                        builder: (ctx) =>
+                                            CategoryDeleteConfirmationAlert(
+                                          model: model,
+                                        ),
+                                      );
+                              },
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (ctx) {
+                                return [
+                                  const PopupMenuItem(
+                                    child: Text('Edit'),
+                                    value: 1,
+                                  ),
+                                  const PopupMenuItem(
+                                    child: Text('Delete'),
+                                    value: 2,
+                                  )
+                                ];
+                              },
+                            )
+                          ],
+                        ),
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15, right: 15),
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                // border: Border.all(color: appWhite, width: 1),
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(40),
+              ),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.black,
+                  size: 26,
+                ),
+                onPressed: () {
+                  selectedValueNotifier.value == 'Income'
+                      ? showIncomeAddPopup(context)
+                      : showExpenseAddPopup(context);
+                },
+              ),
+            ),
+          ),
+        ],
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      )),
+      onWillPop: () {
+        selectedIndexNotifier.value = 0;
+        selectedIndexNotifier.notifyListeners();
+        return Future.value(false);
+      },
+    );
   }
 }
 
@@ -198,6 +215,7 @@ class CategoryDeleteConfirmationAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.grey,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       insetPadding: EdgeInsets.zero,
@@ -205,7 +223,18 @@ class CategoryDeleteConfirmationAlert extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       content: Column(
         children: [
-          const Text('This category will be deleted'),
+          const Text(
+            'Are you sure?',
+            style: TextStyle(
+                fontFamily: 'AnticSlab',
+                fontSize: 18,
+                fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text('This category will be deleted?',
+              style: TextStyle(fontFamily: 'AnticSlab')),
           const SizedBox(
             height: 10,
           ),
@@ -215,7 +244,8 @@ class CategoryDeleteConfirmationAlert extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Cancel'),
+                child: const Text('Cancel',
+                    style: TextStyle(fontFamily: 'AnticSlab', color: appBlue)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -224,7 +254,9 @@ class CategoryDeleteConfirmationAlert extends StatelessWidget {
                     CategoryDb.instance.deleteCategory(model);
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Ok'),
+                  child: const Text('Ok',
+                      style:
+                          TextStyle(fontFamily: 'AnticSlab', color: appBlue)),
                 ),
               )
             ],

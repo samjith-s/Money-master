@@ -9,9 +9,8 @@ class MoneyMasterName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      'Money Master',
-      style: TextStyle(
-          fontFamily: 'NovaFlat', color: Colors.black, fontSize: 24.5),
+      'MoneyZen',
+      style: TextStyle(fontFamily: 'Acme', color: Colors.black, fontSize: 24.5),
     );
   }
 }
@@ -22,6 +21,8 @@ class StartScreenFormField extends StatelessWidget {
   final String? Function(String?) validator;
   final Color? borderColor;
   final TextInputType inputType;
+  final Color? hintColor;
+  final Color? textColor;
   const StartScreenFormField({
     Key? key,
     required this.controller,
@@ -29,29 +30,39 @@ class StartScreenFormField extends StatelessWidget {
     this.borderColor,
     this.inputType = TextInputType.text,
     required this.validator,
+    this.hintColor = const Color.fromARGB(255, 215, 214, 214),
+    this.textColor = Colors.black,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("textfield page rebuild");
     return TextFormField(
+      //autovalidateMode: AutovalidateMode.onUserInteraction,
+      textCapitalization: TextCapitalization.sentences,
       validator: validator,
       keyboardType: inputType,
       controller: controller,
+      style: TextStyle(color: textColor),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(color: Color.fromARGB(255, 201, 200, 200)),
+        hintStyle: TextStyle(
+          color: hintColor,
+          fontFamily: 'AnticSlab',
+        ),
         border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(7)),
             borderSide: BorderSide(
-                color: borderColor ?? Color.fromARGB(255, 201, 200, 200))),
+                color:
+                    borderColor ?? const Color.fromARGB(255, 201, 200, 200))),
         enabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(7)),
             borderSide: BorderSide(
-                color: borderColor ?? Color.fromARGB(255, 201, 200, 200))),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(7)),
-          borderSide: BorderSide(color: appBlue),
+                color:
+                    borderColor ?? const Color.fromARGB(255, 201, 200, 200))),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(7)),
+          borderSide: BorderSide(
+              color: borderColor ?? const Color.fromARGB(255, 201, 200, 200)),
         ),
       ),
     );
@@ -74,12 +85,14 @@ class StartButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(7),
           ),
+          side: const BorderSide(color: appBlue),
           padding: const EdgeInsets.symmetric(horizontal: 25),
         ),
         onPressed: onPressed,
         child: const Text(
           'Start',
-          style: TextStyle(fontSize: 18, fontFamily: 'Roboto', color: appBlue),
+          style:
+              TextStyle(fontSize: 18, fontFamily: 'AnticSlab', color: appBlue),
         ),
       ),
     );

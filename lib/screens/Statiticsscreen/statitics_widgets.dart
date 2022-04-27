@@ -5,7 +5,7 @@ class Indicator extends StatelessWidget {
   final Color color;
   final Color textColor;
   final String text;
-  final bool isSquare;
+
   final double size;
 
   const Indicator({
@@ -13,7 +13,6 @@ class Indicator extends StatelessWidget {
     required this.color,
     this.textColor = Colors.white,
     required this.text,
-    required this.isSquare,
     this.size = 8,
   }) : super(key: key);
 
@@ -22,11 +21,11 @@ class Indicator extends StatelessWidget {
     return Row(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(left: 10),
+          margin: const EdgeInsets.only(left: 10),
           width: size,
           height: size,
           decoration: BoxDecoration(
-            shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
+            shape: BoxShape.circle,
             color: color,
           ),
         ),
@@ -36,6 +35,7 @@ class Indicator extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
+            fontFamily: 'AnticSlab',
             fontSize: 12,
             fontWeight: FontWeight.bold,
             color: textColor,

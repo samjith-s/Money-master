@@ -8,7 +8,6 @@ import 'package:money_manager/transaction_db/transaction_db_model.dart';
 
 import '../../value_notifiers.dart';
 
-
 class TransactionDetailsPage extends StatelessWidget {
   const TransactionDetailsPage({
     Key? key,
@@ -17,14 +16,14 @@ class TransactionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var valuetextStyle = TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'AnticSlab',
       color: detailsNotifier.value.type == Categorytype.expense
           ? Colors.red
           : incomeGreen,
       fontSize: 25,
     );
     var itemTextStyle = const TextStyle(
-      fontFamily: 'Roboto',
+      fontFamily: 'AnticSlab',
       color: Colors.white,
       fontSize: 25,
     );
@@ -212,43 +211,94 @@ class TransactionDeleteConfirmationAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.grey,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       insetPadding: EdgeInsets.zero,
       contentPadding: const EdgeInsets.only(top: 25, bottom: 10),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      // backgroundColor: expenseRed,
+      titlePadding: const EdgeInsets.only(left: 80, top: 30),
+
       content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('This transaction will be deleted'),
-          const SizedBox(
-            height: 10,
+          const Text(
+            'Are you sure?',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'AnticSlab',
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            "Do you want to Delete this?",
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'AnticSlab',
+            ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Cancel'),
+                child: const Text('No',
+                    style: TextStyle(fontFamily: 'AnticSlab', color: appBlue)),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: TextButton(
-                  onPressed: () {
-                    TransactionDbFunctions.instance.deleteTransaction(id);
-                    int count = 0;
-                    Navigator.of(context).popUntil((_) => count++ >= 2);
-                  },
-                  child: const Text('Ok'),
-                ),
-              )
+              TextButton(
+                onPressed: () {
+                  TransactionDbFunctions.instance.deleteTransaction(id);
+                  int count = 0;
+                  Navigator.of(context).popUntil((_) => count++ >= 2);
+                },
+                child: const Text('Yes',
+                    style: TextStyle(fontFamily: 'AnticSlab', color: appBlue)),
+              ),
             ],
-            mainAxisAlignment: MainAxisAlignment.end,
-          )
+          ),
         ],
-        mainAxisSize: MainAxisSize.min,
       ),
+
+///////////////////////////////////////////////////////
+      // shape: const RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      // insetPadding: EdgeInsets.zero,
+      // contentPadding: const EdgeInsets.only(top: 25, bottom: 10),
+      // clipBehavior: Clip.antiAliasWithSaveLayer,
+      // // backgroundColor: expenseRed,
+      // content: Column(
+      //   children: [
+      //     const Text('This transaction will be deleted'),
+      //     const SizedBox(
+      //       height: 10,
+      //     ),
+      //     Row(
+      //       children: [
+      //         TextButton(
+      //           onPressed: () {
+      //             Navigator.of(context).pop();
+      //           },
+      //           child: const Text('Cancel'),
+      //         ),
+      //         Padding(
+      //           padding: const EdgeInsets.only(right: 8),
+      //           child: TextButton(
+      //             onPressed: () {
+      //               TransactionDbFunctions.instance.deleteTransaction(id);
+      //               int count = 0;
+      //               Navigator.of(context).popUntil((_) => count++ >= 2);
+      //             },
+      //             child: const Text('Ok'),
+      //           ),
+      //         )
+      //       ],
+      //       mainAxisAlignment: MainAxisAlignment.end,
+      //     )
+      //   ],
+      //   mainAxisSize: MainAxisSize.min,
+      // ),
     );
   }
 }

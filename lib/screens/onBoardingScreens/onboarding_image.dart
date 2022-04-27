@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class OnboardinImage extends StatelessWidget {
-  final path;
+  final String path;
   const OnboardinImage({
     Key? key,
     required this.path,
@@ -11,7 +11,7 @@ class OnboardinImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image(
-      image: AssetImage(path!),
+      image: AssetImage(path),
       width: 80.w,
       height:55.w,
       fit: BoxFit.fill,

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:money_manager/config/constant_colors.dart';
 
 PageDecoration pageDecoration = const PageDecoration(
+  //pageColor: Colors.grey,
   imagePadding: EdgeInsets.only(top: 200),
   titlePadding: EdgeInsets.only(bottom: 24, top: 10),
   imageFlex: 3,
   bodyFlex: 2,
   footerPadding: EdgeInsets.only(bottom: 100),
-  titleTextStyle: TextStyle(fontFamily: 'NovaFlat', fontSize: 24.5),
+  titleTextStyle: TextStyle(fontFamily: 'AnticSlab', fontSize: 24.5,fontWeight: FontWeight.w400 ),
   bodyTextStyle: TextStyle(
-    fontFamily: 'Roboto',
+    fontFamily: 'AnticSlab',
     fontSize: 21,
-    color: Color.fromARGB(255, 95, 95, 95),
+    color: appBlue,
   ),
 );
 

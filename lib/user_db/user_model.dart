@@ -1,7 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
 part 'user_model.g.dart';
 
-
 @HiveType(typeId: 4)
 class UserModel {
   @HiveField(0)
@@ -13,5 +12,9 @@ class UserModel {
   @HiveField(2)
   final String? image;
 
-  UserModel({required this.name, required this.mobile, this.image});
+  UserModel({
+    required this.name,
+    required this.mobile,
+    this.image,
+  });
 }

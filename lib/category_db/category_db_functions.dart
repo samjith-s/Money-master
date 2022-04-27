@@ -4,7 +4,6 @@ import 'package:money_manager/main.dart';
 
 import '../value_notifiers.dart';
 
-
 abstract class CategoryDbFunctions {
   Future<void> addCategory(CategoryModel value);
   Future<List<CategoryModel>> getCategory();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/category_db/category_models.dart';
+import 'package:money_manager/screens/Statiticsscreen/pie_chart_functions.dart';
+import 'package:money_manager/transaction_db/transaction_db_functions.dart';
 import 'package:money_manager/transaction_db/transaction_db_model.dart';
 import 'package:sizer/sizer.dart';
 import '../../category_db/category_db_functions.dart';
@@ -8,7 +10,6 @@ import '../../config/constant_colors.dart';
 import '../../user_db/user_db_fuctions.dart';
 import '../../value_notifiers.dart';
 import '../detailsPage/transaction_details_page.dart';
-import 'common_scafforld_home.dart';
 import 'homeScreenCustomWidgets/home_screen_widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,14 +24,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    CategoryDb.instance.separateCategories();
+    TransactionDbFunctions.instance.getAllTransactions();
     getUserDetials();
-    // TODO: implement initState
+    CategoryDb.instance.separateCategories();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    getUsedCategories();
     double width = 100.w;
     return SafeArea(
       child: ListView(
@@ -40,22 +42,28 @@ class _HomePageState extends State<HomePage> {
             children: [
               SizedBox(height: width - 75),
               Container(
-                padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
+                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 width: width,
                 height: width - 150,
                 child: Column(
                   children: [
                     //Row with image name and search button
-                    const ImageNameRow(),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: ImageNameRow(),
+                    ),
                     const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        //dropdown for periods like monthly weekly
-                        PeriodSelectDropdown(),
-                        //container with datepicker and show date
-                        DaitPickerContainer()
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          //dropdown for periods like monthly weekly
+                          PeriodSelectDropdown(),
+                          //container with datepicker and show date
+                          DaitPickerContainer()
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -82,13 +90,14 @@ class _HomePageState extends State<HomePage> {
                 const Text(
                   'Transactions history',
                   style: TextStyle(
-                    fontFamily: 'Roboto',
+                    fontFamily: 'AnticSlab',
                     fontSize: 17,
-                    color: Color.fromARGB(255, 92, 90, 90),
+                    color: Color.fromARGB(255, 148, 144, 144),
                   ),
                 ),
                 const SizedBox(height: 5),
                 Container(
+                  margin: const EdgeInsets.only(top: 10),
                   height: width - 24,
                   decoration: const BoxDecoration(
                     color: Color(0xFF272934),
@@ -102,98 +111,118 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(10),
                       child: ValueListenableBuilder(
                         valueListenable: transactionListNotifier,
-                        builder: (BuildContext context, dynamic transactionlist,
-                            Widget? _) {
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemBuilder: (BuildContext ctx, index) {
-                              TransactionModel details = transactionlist[index];
-
-                              return GestureDetector(
-                                behavior: HitTestBehavior.opaque,
-                                child: Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundColor:
-                                                const Color(0xFFf79087),
-                                            child: Text(
-                                              details.remark[0],
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                color: appWhite,
-                                                fontFamily: 'RobotoCondensed',
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                details.remark,
-                                                style: const TextStyle(
-                                                    fontSize: 17,
-                                                    color: appWhite,
-                                                    fontFamily: 'Roboto',
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              const SizedBox(height: 3),
-                                              Text(
-                                                _parseDate(details.date),
-                                                style: const TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        '₹${details.amount}',
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          color: details.type ==
-                                                  Categorytype.income
-                                              ? incomeGreen
-                                              : expenseRed,
-                                        ),
-                                      )
-                                    ],
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                        builder: (BuildContext context,
+                            List<TransactionModel> transactionlist, Widget? _) {
+                          return transactionlist.isEmpty
+                              ? const Center(
+                                  child: Padding(
+                                  padding: EdgeInsets.only(top: 50),
+                                  child: Text(
+                                    'Nothing to show Here',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 17,
+                                        fontFamily: 'AnticSlab'),
                                   ),
-                                ),
-                                onTap: () {
-                                  detailsNotifier.value = details;
-                                  detailsNotifier.notifyListeners();
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (cntx) =>
-                                          const TransactionDetailsPage(),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            separatorBuilder: (BuildContext ctx, index) {
-                              return const Divider(
-                                thickness: .3,
-                                color: appWhite,
-                              );
-                            },
-                            itemCount: transactionlist.length,
-                          );
+                                ))
+                              : ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const ClampingScrollPhysics(),
+                                  itemBuilder: (BuildContext ctx, index) {
+                                    TransactionModel details =
+                                        transactionlist[index];
+
+                                    return GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 5),
+                                        child: Row(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor:
+                                                      const Color(0xFFf79087),
+                                                  child: Text(
+                                                    details.remark[0],
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                      color: appWhite,
+                                                      fontFamily: 'Acme',
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      details.remark,
+                                                      style: const TextStyle(
+                                                          fontSize: 19,
+                                                          color: appWhite,
+                                                          fontFamily:
+                                                              'Rokkitt-Thin',
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                    ),
+                                                   // const SizedBox(height: ),
+                                                    Text(
+                                                      parseDate(details.date),
+                                                      style: const TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.grey,
+                                                        fontFamily:
+                                                            'Rokkitt-Thin',
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              '₹${details.amount}',
+                                              style: TextStyle(
+                                                fontFamily: 'Rokkitt-Thin',
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w900,
+                                                color: details.type ==
+                                                        Categorytype.income
+                                                    ? incomeGreen
+                                                    : expenseRed,
+                                              ),
+                                            )
+                                          ],
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        detailsNotifier.value = details;
+                                        detailsNotifier.notifyListeners();
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (cntx) =>
+                                                const TransactionDetailsPage(),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  separatorBuilder: (BuildContext ctx, index) {
+                                    return const Divider(
+                                      thickness: .05,
+                                      color: Color.fromARGB(255, 231, 246, 232),
+                                    );
+                                  },
+                                  itemCount: transactionlist.length,
+                                );
                         },
                       ),
                     ),
@@ -206,9 +235,9 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
 
-  _parseDate(DateTime date) {
-    List pdate = DateFormat('MMMd').format(date).split(' ');
-    return '${pdate.last} ${pdate.first}';
-  }
+parseDate(DateTime date) {
+  List pdate = DateFormat('MMMd').format(date).split(' ');
+  return '${pdate.last} ${pdate.first}';
 }

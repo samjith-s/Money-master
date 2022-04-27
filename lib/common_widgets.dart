@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:money_manager/user_db/user_db_fuctions.dart';
 import 'package:sizer/sizer.dart';
 import 'config/constant_colors.dart';
 import 'user_db/user_model.dart';
@@ -17,20 +16,35 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      height: 60,
-      width:100.w,
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      height: 55,
+      width: 100.w,
       color: appBlue,
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 24,
-            color: appWhite,
-            fontFamily: 'RobotoCondensed',
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () {
+              selectedIndexNotifier.value = 0;
+              selectedIndexNotifier.notifyListeners();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: appWhite,
+            ),
+            padding: const EdgeInsets.only(
+              right: 25,
+            ),
+            constraints: const BoxConstraints(),
           ),
-        ),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 21,
+              color: appWhite,
+              fontFamily: 'RobotoCondensed',
+            ),
+          ),
+        ],
       ),
     );
   }

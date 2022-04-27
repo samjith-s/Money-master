@@ -1,15 +1,13 @@
-import 'package:money_manager/screens/homeScreen/common_scafforld_home.dart';
+import 'package:money_manager/screens/detailsPage/transaction_details_page.dart';
 import 'package:money_manager/transaction_db/transaction_db_functions.dart';
 import 'package:money_manager/transaction_db/transaction_db_model.dart';
-
 import '../../../value_notifiers.dart';
 
 showTodayTransactions() {
-  //TransactionDbFunctions.instance.getAllTransactions();
   var today = DateTime.now();
   var lastDay = today.subtract(const Duration(days: 1));
   List<TransactionModel> list = transactionListNotifier.value.toList();
-  //print(list);
+
   transactionListNotifier.value.clear();
   Future.forEach<TransactionModel>(list, (model) {
     if (model.date.isAfter(lastDay)) {
@@ -17,6 +15,7 @@ showTodayTransactions() {
     }
   });
   transactionListNotifier.notifyListeners();
+  updateBalance(transactionListNotifier.value, 'Last day');
 }
 
 showWeeklyTransactions() async {
@@ -31,6 +30,7 @@ showWeeklyTransactions() async {
     }
   });
   transactionListNotifier.notifyListeners();
+  updateBalance(transactionListNotifier.value, "Last week");
 }
 
 showMonthlyTransactions() async {
@@ -45,6 +45,7 @@ showMonthlyTransactions() async {
     }
   });
   transactionListNotifier.notifyListeners();
+  updateBalance(transactionListNotifier.value, 'Last month');
 }
 
 showYearlyTransactions() async {
@@ -59,6 +60,7 @@ showYearlyTransactions() async {
     }
   });
   transactionListNotifier.notifyListeners();
+  updateBalance(transactionListNotifier.value, 'Last year');
 }
 
 showTransactionsInPeriod(DateTime start, DateTime end) async {
@@ -73,17 +75,7 @@ showTransactionsInPeriod(DateTime start, DateTime end) async {
     }
   });
   transactionListNotifier.notifyListeners();
-}
-
-searchTransaction() async {
-  await TransactionDbFunctions.instance.getAllTransactions();
-  
-  List<TransactionModel> list = transactionListNotifier.value.toList();
-  transactionListNotifier.value.clear();
-  Future.forEach<TransactionModel>(list, (model) {
-    // if () {
-    //   transactionListNotifier.value.add(model);
-    // }
-  });
-  transactionListNotifier.notifyListeners();
+  var _start = parseDate(start);
+  var _end = parseDate(end);
+  updateBalance(transactionListNotifier.value, '$_start - $_end');
 }

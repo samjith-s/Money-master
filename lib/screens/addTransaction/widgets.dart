@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:money_manager/category_db/category_db_functions.dart';
 import 'package:money_manager/config/constant_colors.dart';
-import 'package:money_manager/category_db/category_models.dart';
 
 class AddTransactionImage extends StatelessWidget {
   const AddTransactionImage({

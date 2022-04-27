@@ -30,7 +30,6 @@ class TransactionDbFunctions implements TransactionDbFunct {
 
   @override
   Future<void> getAllTransactions() async {
-    
     final transactionDb =
         await Hive.openBox<TransactionModel>(transactionDbName);
     var _transactions = transactionDb.values.toList();
@@ -38,7 +37,7 @@ class TransactionDbFunctions implements TransactionDbFunct {
     transactionListNotifier.value.clear();
     transactionListNotifier.value.addAll(_transactions);
     transactionListNotifier.notifyListeners();
-    updateBalance(_transactions);
+    updateBalance(_transactions, 'All time');
   }
 
   @override
@@ -63,12 +62,15 @@ class TransactionDbFunctions implements TransactionDbFunct {
 class AccountModel {
   double income;
   double expense;
+  String? period;
 
-  AccountModel({this.income = 0, this.expense = 0});
+  AccountModel({this.income = 0, this.expense = 0, this.period});
 }
 
-Future<void> updateBalance(List<TransactionModel> transactions) async {
+Future<void> updateBalance(
+    List<TransactionModel> transactions, String period) async {
   accountDetailsNotifier.value = AccountModel();
+  accountDetailsNotifier.value.period = period;
   Future.forEach<TransactionModel>(
     transactions,
     (transaction) {

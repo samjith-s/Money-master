@@ -4,7 +4,6 @@ import 'package:money_manager/category_db/category_models.dart';
 import 'package:money_manager/screens/addTransaction/add_screen.dart';
 import 'package:money_manager/screens/homeScreen/homeScreenCustomWidgets/filter_functions.dart';
 import 'package:money_manager/transaction_db/transaction_db_functions.dart';
-import 'package:money_manager/user_db/user_db_fuctions.dart';
 import 'package:sizer/sizer.dart';
 import '../../../config/constant_colors.dart';
 import '../../../common_widgets.dart';
@@ -25,11 +24,13 @@ class AddIconButton extends StatelessWidget {
         child: IconButton(
           icon: const Icon(Icons.add),
           onPressed: () {
+            amountContoller.text = '';
+            remarkContoller.text = '';
             groupValueNotifier.value = Categorytype.income;
             dropdownValueNotifier.value = '';
             dateNotifier.value = DateTime.now();
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const AddTransactionScreen()));
+            selectedIndexNotifier.value = 2;
+            selectedIndexNotifier.notifyListeners();
           },
         ),
       ),
@@ -70,8 +71,10 @@ class BalanceShowContainer extends StatelessWidget {
                         Text(
                           '${(account.income) - (account.expense)}',
                           style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 17,
+                              fontFamily: 'Rokkitt-Thin',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.w600,
                               color: accountBalance > 0
                                   ? incomeGreen
                                   : expenseRed),
@@ -84,13 +87,15 @@ class BalanceShowContainer extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total In', style: accountBalanceTextstyle),
+                        Text('Total Income', style: accountBalanceTextstyle),
                         Text(
                           '${(account.income)}',
                           style: const TextStyle(
                             color: incomeGreen,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Rokkitt-Thin',
                             fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            //fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -98,13 +103,14 @@ class BalanceShowContainer extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total Out', style: accountBalanceTextstyle),
+                        Text('Total Expense', style: accountBalanceTextstyle),
                         Text(
                           '${(account.expense)}',
                           style: const TextStyle(
                             color: expenseRed,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Rokkitt-Thin',
                             fontSize: 17,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ],
@@ -115,15 +121,9 @@ class BalanceShowContainer extends StatelessWidget {
           width: width - 40,
           height: 124,
           decoration: BoxDecoration(
-              color: const Color(
-                  0xFF272934), //const Color.fromARGB(255, 22, 22, 22).withOpacity(.9),
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color(0xFF17191f),
-                    spreadRadius: 1,
-                    offset: Offset(3, 3))
-              ]),
+            color: const Color(0xFF272934),
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
       ),
     );
@@ -138,6 +138,7 @@ class DaitPickerContainer extends StatefulWidget {
 }
 
 class _DaitPickerContainerState extends State<DaitPickerContainer> {
+  bool showHint = true;
   DateTimeRange intialDateRange = DateTimeRange(
     start: DateTime.now().subtract(const Duration(days: 7)),
     end: DateTime.now(),
@@ -158,12 +159,19 @@ class _DaitPickerContainerState extends State<DaitPickerContainer> {
         child: Row(
           children: [
             Text(
-              '${DateFormat('dd/MM').format(start)} - ${DateFormat('dd/MM').format(end)}',
-              style: const TextStyle(color: appWhite, fontSize: 15),
+              showHint
+                  ? 'Date Range'
+                  : '${DateFormat('dd/MM').format(start)} - ${DateFormat('dd/MM').format(end)}',
+              style: const TextStyle(
+                color: Color(0xFF17191f),
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'AnticSlab',
+              ),
             ),
             const Icon(
               Icons.keyboard_arrow_down,
-              color: appWhite,
+              color: Color(0xFF17191f),
             ),
           ],
         ),
@@ -179,14 +187,19 @@ class _DaitPickerContainerState extends State<DaitPickerContainer> {
           return;
         } else {
           setState(() {
+            showHint = false;
             intialDateRange = dateTimeRange;
             showTransactionsInPeriod(dateTimeRange.start, dateTimeRange.end);
+            homePageDropdownValue.value = null;
+            homePageDropdownValue.notifyListeners();
           });
         }
       },
     );
   }
 }
+
+ValueNotifier<String?> homePageDropdownValue = ValueNotifier(null);
 
 class PeriodSelectDropdown extends StatefulWidget {
   const PeriodSelectDropdown({Key? key}) : super(key: key);
@@ -196,70 +209,88 @@ class PeriodSelectDropdown extends StatefulWidget {
 }
 
 class _PeriodSelectDropdownState extends State<PeriodSelectDropdown> {
-  String? dropdownvalue = 'All time';
   @override
   Widget build(BuildContext context) {
-    dropdownvalue == 'All time'
+    homePageDropdownValue.value == 'All Time'
         ? TransactionDbFunctions.instance.getAllTransactions()
         : null;
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        isDense: true,
-        value: dropdownvalue,
-        items: <DropdownMenuItem<String>>[
-          DropdownMenuItem<String>(
-            value: 'All time',
-            child: const Text('All time'),
-            onTap: () {
-              TransactionDbFunctions.instance.getAllTransactions();
-            },
-          ),
-          DropdownMenuItem<String>(
-            value: 'Last day',
-            child: const Text('Last day'),
-            onTap: () {
-              showTodayTransactions();
-            },
-          ),
-          DropdownMenuItem<String>(
-            value: 'Last week',
-            child: const Text('Last week'),
-            onTap: () {
-              showWeeklyTransactions();
-            },
-          ),
-          DropdownMenuItem<String>(
-            value: 'Last month',
-            child: const Text('Last month'),
-            onTap: () {
-              showMonthlyTransactions();
-            },
-          ),
-          DropdownMenuItem<String>(
-            value: 'Last year',
-            child: const Text('Last year'),
-            onTap: () {
-              showYearlyTransactions();
-            },
-          ),
-        ],
-        onChanged: (value) {
-          setState(() {
-            dropdownvalue = value;
-          });
-        },
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.only(left: 10),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 15, 78, 129),
         borderRadius: BorderRadius.circular(10),
-        style: const TextStyle(
-          fontSize: 21,
-          fontFamily: 'RobotoCondensed',
-          fontWeight: FontWeight.w600,
-          color: appWhite,
-        ),
-        dropdownColor: const Color(0xFF17191f),
-        icon: const Icon(
-          Icons.keyboard_arrow_down,
-          size: 30,
-          color: appWhite,
+      ),
+      child: DropdownButtonHideUnderline(
+        child: ValueListenableBuilder(
+          valueListenable: homePageDropdownValue,
+          builder: (BuildContext _context, String? dropdownvalue, Widget? _) {
+            return DropdownButton<String>(
+              focusColor: const Color.fromARGB(255, 15, 78, 129),
+              hint: const Text(
+                'Filter History',
+                style: TextStyle(
+                    fontFamily: 'AnticSlab',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF17191f)),
+              ),
+              isDense: true,
+              value: dropdownvalue,
+              items: <DropdownMenuItem<String>>[
+                DropdownMenuItem<String>(
+                  value: 'All Time',
+                  child: const Text('All Time'),
+                  onTap: () {
+                    TransactionDbFunctions.instance.getAllTransactions();
+                  },
+                ),
+                DropdownMenuItem<String>(
+                  value: 'Last Day',
+                  child: const Text('Last Day'),
+                  onTap: () {
+                    showTodayTransactions();
+                  },
+                ),
+                DropdownMenuItem<String>(
+                  value: 'Last Week',
+                  child: const Text('Last Week'),
+                  onTap: () {
+                    showWeeklyTransactions();
+                  },
+                ),
+                DropdownMenuItem<String>(
+                  value: 'Last Month',
+                  child: const Text('Last Month'),
+                  onTap: () {
+                    showMonthlyTransactions();
+                  },
+                ),
+                DropdownMenuItem<String>(
+                  value: 'Last Year',
+                  child: const Text('Last Year'),
+                  onTap: () {
+                    showYearlyTransactions();
+                  },
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  homePageDropdownValue.value = value;
+                });
+              },
+              borderRadius: BorderRadius.circular(10),
+              style: const TextStyle(
+                fontSize: 15,
+                fontFamily: 'AnticSlab',
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF17191f),
+              ),
+              dropdownColor: const Color.fromARGB(255, 15, 78, 129),
+              iconEnabledColor:const Color(0xFF17191f),
+              icon: const Icon(Icons.keyboard_arrow_down),
+            );
+          },
         ),
       ),
     );
@@ -298,9 +329,10 @@ class _ImageNameRowState extends State<ImageNameRow> {
                             return Text(
                               'Hi ${model.name} ✨',
                               style: const TextStyle(
-                                fontSize: 20,
-                                fontFamily: 'RobotoCondensed',
-                                color: appWhite,
+                                fontSize: 23,
+                                fontFamily: 'Rokkitt-Thin',
+                                color: Color(0xFF17191f),
+                                fontWeight: FontWeight.bold,
                               ),
                             );
                           }),
@@ -314,7 +346,7 @@ class _ImageNameRowState extends State<ImageNameRow> {
                         icon: const Icon(
                           Icons.search,
                           size: 25,
-                          color: appWhite,
+                          color: Color(0xFF17191f),
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
@@ -330,14 +362,15 @@ class _ImageNameRowState extends State<ImageNameRow> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: SizedBox(
-                        width: width - 205,
+                        width: width - 194,
                         height: 50,
                         child: TextField(
+                          textCapitalization: TextCapitalization.sentences,
                           onChanged: (value) async {
                             if (transactionListNotifier.value
                                     .where(
                                       (element) =>
-                                          element.category.contains(value),
+                                          element.remark.contains(value),
                                     )
                                     .toList() ==
                                 []) {
@@ -348,7 +381,7 @@ class _ImageNameRowState extends State<ImageNameRow> {
                                   transactionListNotifier.value
                                       .where(
                                         (element) =>
-                                            element.category.contains(value),
+                                            element.remark.contains(value),
                                       )
                                       .toList();
                             }

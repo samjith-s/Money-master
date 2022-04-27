@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_manager/config/constant_colors.dart';
 import 'package:money_manager/category_db/category_models.dart';
@@ -11,15 +12,16 @@ import 'user_db/user_model.dart';
 
 const categoryDbName = 'category_db';
 
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 void main(List<String> args) async {
-  print("main function page rebuild");
   WidgetsFlutterBinding.ensureInitialized();
 
   Hive.initFlutter(categoryDbName);
 
   await Hive.initFlutter('login_check');
 
-  //Hive.initFlutter(transactionDbName);
+  Hive.initFlutter(transactionDbName);
 
   if (!Hive.isAdapterRegistered(CategorytypeAdapter().typeId)) {
     Hive.registerAdapter(CategorytypeAdapter());
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("myapp page rebuild");
+   
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: appBlue),
     );

@@ -3,7 +3,6 @@ part 'category_models.g.dart';
 
 @HiveType(typeId: 1)
 enum Categorytype {
-
   @HiveField(0)
   income,
 
@@ -13,7 +12,6 @@ enum Categorytype {
 
 @HiveType(typeId: 2)
 class CategoryModel {
-
   @HiveField(0)
   final int id;
 
@@ -30,6 +28,6 @@ class CategoryModel {
     required this.id,
     required this.category,
     required this.type,
-    this.isDeleted=false,
+    this.isDeleted = false,
   });
 }
