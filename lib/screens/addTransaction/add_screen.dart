@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager/config/constant_colors.dart';
 import 'package:money_manager/screens/addTransaction/add_transaction_widgets.dart';
+import 'package:money_manager/screens/homeScreen/home_page.dart';
 import 'package:money_manager/screens/startingScreen/starting_screen_widgets.dart';
 import 'package:money_manager/transaction_db/transaction_db_functions.dart';
 import 'package:money_manager/transaction_db/transaction_db_model.dart';
@@ -69,9 +70,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 10),
+                  SizedBox(height: height * .01329),
                   const AddPageDatePicker(),
-                  const SizedBox(height: 21),
+                  SizedBox(height: height * .02792),
                   StartScreenFormField(
                     textColor: appWhite,
                     hintColor: const Color.fromARGB(255, 108, 108, 108),
@@ -87,7 +88,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             ? null
                             : 'Enter a valid amount',
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: height * .03988),
                   StartScreenFormField(
                     textColor: appWhite,
                     hintColor: const Color.fromARGB(255, 108, 108, 108),
@@ -108,9 +109,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         ? 'Select category'
                         : widget.model!.category,
                   ),
-                  const SizedBox(height: 30),
+                  SizedBox(height: height * .03988),
                   const AddPageNewCategory(),
-                  const SizedBox(height: 24),
+                  SizedBox(height: height * .03191),
                   const Text(
                     'Payment Mode',
                     style: TextStyle(
@@ -119,9 +120,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       fontFamily: 'AnticSlab',
                     ),
                   ),
-                  const SizedBox(
-                    height: 6,
-                  ),
+                  SizedBox(height: height * .00797),
                   Row(
                     children: [
                       PeymentModeButton(
@@ -147,12 +146,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 40,
+                   SizedBox(
+                    height: height*.05319,
                   ),
                   SizedBox(
                     width: double.infinity,
-                    height: 54.5,
+                    height: height * .07247,
                     child: ElevatedButton(
                       child: Text(
                         widget.model == null ? 'Save' : 'Save Changes',
@@ -264,7 +263,7 @@ class PeymentModeButton extends StatelessWidget {
             backgroundColor: buttonName == button
                 ? MaterialStateProperty.all(appBlue)
                 : MaterialStateProperty.all(
-                     const Color.fromARGB(255, 108, 108, 108),
+                    const Color.fromARGB(255, 108, 108, 108),
                   ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(

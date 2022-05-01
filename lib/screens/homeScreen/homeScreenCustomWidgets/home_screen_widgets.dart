@@ -4,12 +4,12 @@ import 'package:money_manager/category_db/category_models.dart';
 import 'package:money_manager/screens/addTransaction/add_screen.dart';
 import 'package:money_manager/screens/homeScreen/homeScreenCustomWidgets/filter_functions.dart';
 import 'package:money_manager/transaction_db/transaction_db_functions.dart';
-import 'package:sizer/sizer.dart';
 import '../../../config/constant_colors.dart';
 import '../../../common_widgets.dart';
 import '../../../user_db/user_model.dart';
 import '../../../value_notifiers.dart';
 import '../common_scafforld_home.dart';
+import '../home_page.dart';
 
 class AddIconButton extends StatelessWidget {
   const AddIconButton({Key? key}) : super(key: key);
@@ -41,17 +41,14 @@ class AddIconButton extends StatelessWidget {
 class BalanceShowContainer extends StatelessWidget {
   const BalanceShowContainer({
     Key? key,
-    required this.width,
   }) : super(key: key);
-
-  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: width - 212,
+      top: height * .1968,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: width * .05556),
         child: Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 12,
@@ -69,7 +66,7 @@ class BalanceShowContainer extends StatelessWidget {
                       children: [
                         Text('Account Balance', style: accountBalanceTextstyle),
                         Text(
-                          '${(account.income) - (account.expense)}',
+                          '₹ ${(account.income) - (account.expense)}',
                           style: TextStyle(
                               fontFamily: 'Rokkitt-Thin',
                               fontSize: 20,
@@ -89,7 +86,7 @@ class BalanceShowContainer extends StatelessWidget {
                       children: [
                         Text('Total Income', style: accountBalanceTextstyle),
                         Text(
-                          '${(account.income)}',
+                          '₹ ${(account.income)}',
                           style: const TextStyle(
                             color: incomeGreen,
                             fontFamily: 'Rokkitt-Thin',
@@ -105,7 +102,7 @@ class BalanceShowContainer extends StatelessWidget {
                       children: [
                         Text('Total Expense', style: accountBalanceTextstyle),
                         Text(
-                          '${(account.expense)}',
+                          '₹ ${(account.expense)}',
                           style: const TextStyle(
                             color: expenseRed,
                             fontFamily: 'Rokkitt-Thin',
@@ -118,8 +115,8 @@ class BalanceShowContainer extends StatelessWidget {
                   ],
                 );
               }),
-          width: width - 40,
-          height: 124,
+          width: width * .88888,
+          height: height * .16489,
           decoration: BoxDecoration(
             color: const Color(0xFF272934),
             borderRadius: BorderRadius.circular(15),
@@ -155,7 +152,7 @@ class _DaitPickerContainerState extends State<DaitPickerContainer> {
           borderRadius: BorderRadius.circular(10),
           color: const Color.fromARGB(255, 15, 78, 129),
         ),
-        height: 40,
+        height: height * .053191,
         child: Row(
           children: [
             Text(
@@ -215,7 +212,7 @@ class _PeriodSelectDropdownState extends State<PeriodSelectDropdown> {
         ? TransactionDbFunctions.instance.getAllTransactions()
         : null;
     return Container(
-      height: 40,
+      height: height * .053191,
       padding: const EdgeInsets.only(left: 10),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 15, 78, 129),
@@ -287,7 +284,7 @@ class _PeriodSelectDropdownState extends State<PeriodSelectDropdown> {
                 color: Color(0xFF17191f),
               ),
               dropdownColor: const Color.fromARGB(255, 15, 78, 129),
-              iconEnabledColor:const Color(0xFF17191f),
+              iconEnabledColor: const Color(0xFF17191f),
               icon: const Icon(Icons.keyboard_arrow_down),
             );
           },
@@ -310,14 +307,13 @@ class _ImageNameRowState extends State<ImageNameRow> {
   bool showSearchbar = false;
   @override
   Widget build(BuildContext context) {
-    double width = 100.w;
     return Row(
       children: [
         const UserProfilePicture(),
         showSearchbar == false
             ? Expanded(
                 child: SizedBox(
-                  height: 70,
+                  height: height * .09308,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -362,8 +358,8 @@ class _ImageNameRowState extends State<ImageNameRow> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: SizedBox(
-                        width: width - 194,
-                        height: 50,
+                        width: width * .4611,
+                        height: height * .06648,
                         child: TextField(
                           textCapitalization: TextCapitalization.sentences,
                           onChanged: (value) async {

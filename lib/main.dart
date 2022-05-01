@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
+    precacheImage(const AssetImage('assets/images/wzicon.png'), context);
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: appBlue),
     );

@@ -36,9 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
               image: const AssetImage('assets/images/wzicon.png'),
               width: 25.w,
             ),
-            // const SizedBox(
-            //   height: 25,
-            // ),
             const MoneyMasterName()
           ],
         ),

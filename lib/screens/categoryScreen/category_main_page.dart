@@ -5,6 +5,7 @@ import 'package:money_manager/common_widgets.dart';
 import 'package:money_manager/category_db/category_models.dart';
 import 'package:sizer/sizer.dart';
 import '../../value_notifiers.dart';
+import '../homeScreen/home_page.dart';
 import 'category_functions.dart';
 
 TextEditingController incomeController = TextEditingController();
@@ -32,7 +33,7 @@ class MainCatogoryPageState extends State<MainCatogoryPage> {
             margin: const EdgeInsets.only(top: 15, right: 15, bottom: 15),
             width: 30.w,
             alignment: AlignmentDirectional.center,
-            height: 40,
+            height: height * .05319,
             child: DropdownButton(
               underline: const SizedBox(),
               value: selectedValueNotifier.value,
@@ -106,7 +107,7 @@ class MainCatogoryPageState extends State<MainCatogoryPage> {
                             ),
                             PopupMenuButton(
                               child: Container(
-                                height: 36,
+                                height: height * .047872,
                                 width: 18,
                                 alignment: Alignment.centerRight,
                                 child: const Icon(
@@ -150,7 +151,7 @@ class MainCatogoryPageState extends State<MainCatogoryPage> {
                             )
                           ],
                         ),
-                        height: 50,
+                        height: height * .066489,
                         decoration: BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.circular(5),
@@ -165,8 +166,8 @@ class MainCatogoryPageState extends State<MainCatogoryPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 15, right: 15),
             child: Container(
-              width: 50,
-              height: 50,
+              width: height * .066489,
+              height: height * .066489,
               decoration: BoxDecoration(
                 // border: Border.all(color: appWhite, width: 1),
                 color: Colors.grey,
@@ -230,13 +231,13 @@ class CategoryDeleteConfirmationAlert extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.w500),
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: height * .013297,
           ),
           const Text('This category will be deleted?',
               style: TextStyle(fontFamily: 'AnticSlab')),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: height * .013297,
           ),
           Row(
             children: [

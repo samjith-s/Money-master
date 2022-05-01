@@ -21,10 +21,11 @@ class StartNowButton extends StatelessWidget {
         child: const Text(
           "START NOW",
           style: TextStyle(
-              fontSize: 20,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w500,
-              color: appBlue),
+            fontSize: 20,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w500,
+            color: appBlue,
+          ),
         ),
         style: OutlinedButton.styleFrom(
           side: const BorderSide(width: 1.0, color: appBlue),

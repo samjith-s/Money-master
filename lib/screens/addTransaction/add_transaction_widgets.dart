@@ -4,6 +4,7 @@ import '../../category_db/category_models.dart';
 import '../../config/constant_colors.dart';
 import '../../value_notifiers.dart';
 import '../categoryScreen/category_functions.dart';
+import '../homeScreen/home_page.dart';
 import 'add_screen.dart';
 
 class AddPageRadiobuttons extends StatelessWidget {
@@ -88,7 +89,7 @@ class AddPageDropDown extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       width: double.infinity,
-      height: 58,
+      height: height * .07712,
       child: ValueListenableBuilder(
           valueListenable: groupValueNotifier,
           builder: (BuildContext context, Categorytype radio, Widget? _) {
@@ -159,7 +160,7 @@ class AddPageNewCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 52,
+      height: height * .06914,
       child: OutlinedButton.icon(
         onPressed: () {
           groupValueNotifier.value == Categorytype.income

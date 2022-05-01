@@ -12,6 +12,9 @@ import '../../value_notifiers.dart';
 import '../detailsPage/transaction_details_page.dart';
 import 'homeScreenCustomWidgets/home_screen_widgets.dart';
 
+double width = 100.w;
+double height = 100.h;
+
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
@@ -33,18 +36,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     getUsedCategories();
-    double width = 100.w;
     return SafeArea(
       child: ListView(
         children: [
           Stack(
             clipBehavior: Clip.none,
             children: [
-              SizedBox(height: width - 75),
+              SizedBox(height: height * .3789),
               Container(
-                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                padding:
+                    EdgeInsets.only(top: height * .0132, left: 20, right: 20),
                 width: width,
-                height: width - 150,
+                height: height * .2792,
                 child: Column(
                   children: [
                     //Row with image name and search button
@@ -76,14 +79,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               //first white container with account balance and total income and total expence
-              BalanceShowContainer(
-                width: width,
-              )
+              const BalanceShowContainer()
             ],
           ),
           //transaction list start here
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: width * .05556),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -97,8 +98,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 5),
                 Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  height: width - 24,
+                  width: width * .88888,
+                  margin: EdgeInsets.only(
+                    top: height * .0132,
+                  ),
+                  height: height * .47,
                   decoration: const BoxDecoration(
                     color: Color(0xFF272934),
                     borderRadius: BorderRadius.only(
@@ -170,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                                                           fontWeight:
                                                               FontWeight.w700),
                                                     ),
-                                                   // const SizedBox(height: ),
+                                                    // const SizedBox(height: ),
                                                     Text(
                                                       parseDate(details.date),
                                                       style: const TextStyle(
@@ -187,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                                               ],
                                             ),
                                             Text(
-                                              '₹${details.amount}',
+                                              '₹ ${details.amount}',
                                               style: TextStyle(
                                                 fontFamily: 'Rokkitt-Thin',
                                                 fontSize: 20,

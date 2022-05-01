@@ -4,6 +4,7 @@ import 'package:money_manager/config/constant_colors.dart';
 import 'package:money_manager/screens/app_lock_screen.dart';
 import 'package:money_manager/screens/profilePage/notification_functions.dart';
 import 'package:money_manager/screens/splashScreen/app_splash_screen.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,9 +16,11 @@ import '../../transaction_db/transaction_db_model.dart';
 import '../../user_db/user_db_fuctions.dart';
 import '../../user_db/user_model.dart';
 import '../../value_notifiers.dart';
+import '../homeScreen/home_page.dart';
 import '../startingScreen/add_image_button.dart';
 import '../startingScreen/starting_screen.dart';
 import '../startingScreen/starting_screen_widgets.dart';
+import 'package:launch_review/launch_review.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -32,10 +35,10 @@ class ProfilePage extends StatelessWidget {
               const CustomAppBar(title: 'Your Profile'),
               //profile edit row
               SizedBox(
-                height: 96,
+                height: height * .12765,
                 width: 100.w,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15,right: 20),
+                  padding: const EdgeInsets.only(left: 15, right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -161,12 +164,20 @@ class ProfilePage extends StatelessWidget {
               ),
               SettingsItem(
                 label: 'Share app',
-                onTap: () {},
+                onTap: () {
+                  Share.share(
+                      'https://play.google.com/store/apps/details?id=in.bototype.moneyzen');
+                },
                 icon: Icons.share_outlined,
               ),
               SettingsItem(
                 label: 'Rate app',
-                onTap: () {},
+                onTap: () {
+                  LaunchReview.launch(
+                    androidAppId: "in.bototype.moneyzen",
+                    iOSAppId: "585027354",
+                  );
+                },
                 icon: Icons.star_rate_outlined,
               ),
               SettingsItem(
@@ -213,9 +224,7 @@ class ProfilePage extends StatelessWidget {
                   validator: (value) {},
                   borderColor: appBlue,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: height * .02659),
                 StartScreenFormField(
                   controller: numberController,
                   hint: 'Mobile Number',
@@ -223,19 +232,14 @@ class ProfilePage extends StatelessWidget {
                   validator: (value) {},
                   borderColor: appBlue,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: height * .02659),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const AddImageButton(
-                      childText: 'Image',
-                      height: 40,
-                    ),
+                    AddImageButton(childText: 'Image', height: height * .05319),
                     SizedBox(
                       width: 20.w,
-                      height: 40,
+                      height: height * .05319,
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -268,7 +272,7 @@ class ProfilePage extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: height * .02659),
               ],
             ),
           );
@@ -278,11 +282,10 @@ class ProfilePage extends StatelessWidget {
   void showMyAboutDialog(BuildContext context) {
     return showAboutDialog(
       context: context,
-      applicationIcon: const Image(
-        image: AssetImage('assets/images/wzicon.png'),
-        width: 40,
-        height: 40,
-      ),
+      applicationIcon: Image(
+          image: const AssetImage('assets/images/wzicon.png'),
+          width: height * .02659,
+          height: height * .02659),
       applicationName: 'MoneyZen',
       applicationVersion: 'version 1.0.0',
       children: [
@@ -323,10 +326,10 @@ class ProfilePage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                "Do you want to reset app?",
+                "All app data will be deleted?",
                 style: TextStyle(color: Colors.black, fontFamily: 'AnticSlab'),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: height * .013297),
               const Text(
                 'Are you sure?',
                 style: TextStyle(color: Colors.black, fontFamily: 'AnticSlab'),
@@ -445,7 +448,7 @@ class InfoTitleProfilePage extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 5, left: 20, right: 25),
       //margin:const EdgeInsets.symmetric( horizontal: 20),
       width: double.infinity,
-      height: 30,
+      height: height * .03989,
       // color: Color.fromARGB(255, 56, 56, 56),
       child: Text(
         text,
@@ -474,7 +477,7 @@ class _NotificationSwitchState extends State<NotificationSwitch> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 20,
+      height: height * .02659,
       width: 35,
       child: Switch(
         trackColor: MaterialStateProperty.all(Colors.grey),
@@ -524,7 +527,7 @@ class _AppLockSwitchState extends State<AppLockSwitch> {
     }
 
     return SizedBox(
-      height: 20,
+      height: height * .02659,
       width: 35,
       child: Switch(
         trackColor: MaterialStateProperty.all(Colors.grey),
