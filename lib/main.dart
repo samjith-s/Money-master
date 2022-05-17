@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:money_manager/application/allrounder/allrounder_bloc.dart';
+import 'package:money_manager/application/transactions/transactions_bloc.dart';
+import 'package:money_manager/application/user_details/user_details_bloc.dart';
 import 'package:money_manager/config/constant_colors.dart';
-import 'package:money_manager/category_db/category_models.dart';
-import 'package:money_manager/screens/splashScreen/app_splash_screen.dart';
-import 'package:money_manager/transaction_db/transaction_db_functions.dart';
-import 'package:money_manager/transaction_db/transaction_db_model.dart';
+import 'package:money_manager/domain/core/dependency_injection/injectable.dart';
 import 'package:sizer/sizer.dart';
-import 'user_db/user_model.dart';
+import 'application/categories/categories_bloc.dart';
+import 'domain/categories/model/category_db_model.dart';
+import 'domain/transactions/model/transaction_db_model.dart';
+import 'domain/user/model/user_model.dart';
+import 'presentation/screens/splashScreen/app_splash_screen.dart';
+import 'presentation/transaction_db/transaction_db_functions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 const categoryDbName = 'category_db';
 
@@ -16,6 +22,8 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await configureInjection();
 
   Hive.initFlutter(categoryDbName);
 
@@ -52,12 +60,20 @@ class MyApp extends StatelessWidget {
       const SystemUiOverlayStyle(statusBarColor: appBlue),
     );
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => getIt<TransactionsBloc>()),
+          BlocProvider(create: (context) => getIt<CategoriesBloc>()),
+          BlocProvider(create: (context) => UserDetailsBloc()),
+          BlocProvider(create: (context) => AllrounderBloc()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const SplashScreen(),
         ),
-        home: const SplashScreen(),
       );
     });
   }
