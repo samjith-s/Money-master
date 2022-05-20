@@ -28,6 +28,7 @@ class TransactionServicesImpl extends TransationServices {
   Future<List<TransactionModel>> getAllTransactions() async {
     final transactionDb =
         await Hive.openBox<TransactionModel>(transactionDbName);
+        
     return transactionDb.values.toList();
   }
 

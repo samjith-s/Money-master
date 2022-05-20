@@ -4,10 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_manager/application/transactions/transactions_bloc.dart';
 import 'package:money_manager/config/constant_colors.dart';
 import 'package:money_manager/presentation/common_widgets.dart';
-import 'package:money_manager/presentation/value_notifiers.dart';
 import 'package:sizer/sizer.dart';
 import '../../../application/allrounder/allrounder_bloc.dart';
-import '../../../domain/transactions/model/transaction_db_model.dart';
 import 'pie_chart_functions.dart';
 import 'statitics_widgets.dart';
 

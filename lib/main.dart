@@ -9,14 +9,14 @@ import 'package:money_manager/config/constant_colors.dart';
 import 'package:money_manager/domain/core/dependency_injection/injectable.dart';
 import 'package:sizer/sizer.dart';
 import 'application/categories/categories_bloc.dart';
+import 'config/constant_db_names.dart';
 import 'domain/categories/model/category_db_model.dart';
 import 'domain/transactions/model/transaction_db_model.dart';
 import 'domain/user/model/user_model.dart';
 import 'presentation/screens/splashScreen/app_splash_screen.dart';
-import 'presentation/transaction_db/transaction_db_functions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-const categoryDbName = 'category_db';
+
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();

@@ -16,5 +16,12 @@ class AllrounderBloc extends Bloc<AllrounderEvent, AllrounderState> {
     on<ChangeSearchBarVisibility>((event, emit) {
       emit(state.copyWith(showHomeScreenSearchBar: event.visibility));
     });
+    on<TurnOnApplock>((event, emit) {
+      emit(state.copyWith(isApplockenabled: event.isApplockenabled));
+    });
+    on<TurnOnNotification>((event, emit) {
+      emit(state.copyWith(isNotificationOn: event.isNotificationOn));
+    });
+
   }
 }

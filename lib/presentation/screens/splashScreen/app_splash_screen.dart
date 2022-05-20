@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:money_manager/application/allrounder/allrounder_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../app_lock_screen.dart';
@@ -46,6 +48,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> checkLogin(context) async {
     final SharedPreferences _pref = await SharedPreferences.getInstance();
     password = _pref.getString('password') ?? 'false';
+    BlocProvider.of<AllrounderBloc>(context).add(AllrounderEvent.turnOnApplock(
+        isApplockenabled: password == 'false' ? false : true));
     if (password != 'false') {
       await showLockScreen(context, opaque: true);
     } else {

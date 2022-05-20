@@ -20,7 +20,7 @@ mixin _$TransactionsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -32,7 +32,7 @@ mixin _$TransactionsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -44,7 +44,7 @@ mixin _$TransactionsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -161,7 +161,7 @@ class _$GetAllTransactions
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -176,7 +176,7 @@ class _$GetAllTransactions
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -191,7 +191,7 @@ class _$GetAllTransactions
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -334,7 +334,7 @@ class _$AddTransaction with DiagnosticableTreeMixin implements AddTransaction {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -349,7 +349,7 @@ class _$AddTransaction with DiagnosticableTreeMixin implements AddTransaction {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -364,7 +364,7 @@ class _$AddTransaction with DiagnosticableTreeMixin implements AddTransaction {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -443,7 +443,7 @@ abstract class _$$DeleteTransactionCopyWith<$Res> {
   factory _$$DeleteTransactionCopyWith(
           _$DeleteTransaction value, $Res Function(_$DeleteTransaction) then) =
       __$$DeleteTransactionCopyWithImpl<$Res>;
-  $Res call({int id});
+  $Res call({int id, BuildContext context});
 }
 
 /// @nodoc
@@ -460,12 +460,17 @@ class __$$DeleteTransactionCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? context = freezed,
   }) {
     return _then(_$DeleteTransaction(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      context: context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
     ));
   }
 }
@@ -475,14 +480,16 @@ class __$$DeleteTransactionCopyWithImpl<$Res>
 class _$DeleteTransaction
     with DiagnosticableTreeMixin
     implements DeleteTransaction {
-  const _$DeleteTransaction({required this.id});
+  const _$DeleteTransaction({required this.id, required this.context});
 
   @override
   final int id;
+  @override
+  final BuildContext context;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TransactionsEvent.deleteTransaction(id: $id)';
+    return 'TransactionsEvent.deleteTransaction(id: $id, context: $context)';
   }
 
   @override
@@ -490,7 +497,8 @@ class _$DeleteTransaction
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'TransactionsEvent.deleteTransaction'))
-      ..add(DiagnosticsProperty('id', id));
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('context', context));
   }
 
   @override
@@ -498,12 +506,15 @@ class _$DeleteTransaction
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeleteTransaction &&
-            const DeepCollectionEquality().equals(other.id, id));
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.context, context));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(context));
 
   @JsonKey(ignore: true)
   @override
@@ -515,14 +526,14 @@ class _$DeleteTransaction
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
     required TResult Function(DateTime start, DateTime end) filterByPeriod,
     required TResult Function(String searchKey) searchTransaction,
   }) {
-    return deleteTransaction(id);
+    return deleteTransaction(id, context);
   }
 
   @override
@@ -530,14 +541,14 @@ class _$DeleteTransaction
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
     TResult Function(DateTime start, DateTime end)? filterByPeriod,
     TResult Function(String searchKey)? searchTransaction,
   }) {
-    return deleteTransaction?.call(id);
+    return deleteTransaction?.call(id, context);
   }
 
   @override
@@ -545,7 +556,7 @@ class _$DeleteTransaction
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -554,7 +565,7 @@ class _$DeleteTransaction
     required TResult orElse(),
   }) {
     if (deleteTransaction != null) {
-      return deleteTransaction(id);
+      return deleteTransaction(id, context);
     }
     return orElse();
   }
@@ -610,10 +621,12 @@ class _$DeleteTransaction
 }
 
 abstract class DeleteTransaction implements TransactionsEvent {
-  const factory DeleteTransaction({required final int id}) =
-      _$DeleteTransaction;
+  const factory DeleteTransaction(
+      {required final int id,
+      required final BuildContext context}) = _$DeleteTransaction;
 
   int get id => throw _privateConstructorUsedError;
+  BuildContext get context => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$DeleteTransactionCopyWith<_$DeleteTransaction> get copyWith =>
       throw _privateConstructorUsedError;
@@ -696,7 +709,7 @@ class _$UpdateTransaction
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -711,7 +724,7 @@ class _$UpdateTransaction
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -726,7 +739,7 @@ class _$UpdateTransaction
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -878,7 +891,7 @@ class _$FilterTransactions
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -893,7 +906,7 @@ class _$FilterTransactions
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -908,7 +921,7 @@ class _$FilterTransactions
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -1061,7 +1074,7 @@ class _$ChangeFilterDDValue
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -1076,7 +1089,7 @@ class _$ChangeFilterDDValue
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -1091,7 +1104,7 @@ class _$ChangeFilterDDValue
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -1251,7 +1264,7 @@ class _$FilterByPeriod with DiagnosticableTreeMixin implements FilterByPeriod {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -1266,7 +1279,7 @@ class _$FilterByPeriod with DiagnosticableTreeMixin implements FilterByPeriod {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -1281,7 +1294,7 @@ class _$FilterByPeriod with DiagnosticableTreeMixin implements FilterByPeriod {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -1434,7 +1447,7 @@ class _$SearchTransaction
   TResult when<TResult extends Object?>({
     required TResult Function() getAllTransactions,
     required TResult Function(TransactionModel model) addTransaction,
-    required TResult Function(int id) deleteTransaction,
+    required TResult Function(int id, BuildContext context) deleteTransaction,
     required TResult Function(TransactionModel newModel) updateTransaction,
     required TResult Function(String period) filterTransactions,
     required TResult Function(String? newValue) changeFilterDDValue,
@@ -1449,7 +1462,7 @@ class _$SearchTransaction
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,
@@ -1464,7 +1477,7 @@ class _$SearchTransaction
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllTransactions,
     TResult Function(TransactionModel model)? addTransaction,
-    TResult Function(int id)? deleteTransaction,
+    TResult Function(int id, BuildContext context)? deleteTransaction,
     TResult Function(TransactionModel newModel)? updateTransaction,
     TResult Function(String period)? filterTransactions,
     TResult Function(String? newValue)? changeFilterDDValue,

@@ -29,7 +29,8 @@ class AddPageRadiobuttons extends StatelessWidget {
 
                       BlocProvider.of<CategoriesBloc>(context).add(
                         CategoriesEvent.changeCategoryDdValue(
-                          newValue: state.incomeCategorieList.isEmpty
+                          newValue: 
+                          state.incomeCategorieList.isEmpty
                               ? null
                               : state.incomeCategorieList[0].category,
                         ),

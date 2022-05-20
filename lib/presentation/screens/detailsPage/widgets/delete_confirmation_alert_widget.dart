@@ -51,9 +51,7 @@ class TransactionDeleteConfirmationAlert extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   BlocProvider.of<TransactionsBloc>(context)
-                      .add(TransactionsEvent.deleteTransaction(id: id));
-                  int count = 0;
-                  Navigator.of(context).popUntil((_) => count++ >= 2);
+                      .add(TransactionsEvent.deleteTransaction(id: id,context:context));
                 },
                 child: const Text('Yes',
                     style: TextStyle(fontFamily: 'AnticSlab', color: appBlue)),

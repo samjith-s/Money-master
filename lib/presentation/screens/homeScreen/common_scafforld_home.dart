@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_manager/application/allrounder/allrounder_bloc.dart';
 import 'package:money_manager/config/constant_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../value_notifiers.dart';
 import '../Statiticsscreen/statitics_page.dart';
 import '../addTransaction/add_screen.dart';
 import '../categoryScreen/category_main_page.dart';
@@ -24,7 +23,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    takeNotificationBool();
+    takeNotificationBool(context);
     return BlocBuilder<AllrounderBloc, AllrounderState>(
       builder: (context, state) {
         return Scaffold(
@@ -71,9 +70,12 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-takeNotificationBool() async {
+takeNotificationBool(context) async {
   final SharedPreferences _pref = await SharedPreferences.getInstance();
-  isNotificationOn = _pref.getBool('isNotificationOn') ?? true;
+  bool isNotificationOn = _pref.getBool('isNotificationOn') ?? true;
+  BlocProvider.of<AllrounderBloc>(context).add(
+      AllrounderEvent.turnOnNotification(
+          isNotificationOn: isNotificationOn ));
 }
 
 TextStyle accountBalanceTextstyle = const TextStyle(

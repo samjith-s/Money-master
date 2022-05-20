@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:money_manager/application/categories/categories_bloc.dart';
 import 'package:money_manager/application/user_details/user_details_bloc.dart';
-import 'package:money_manager/category_db/category_db_functions.dart';
-// import 'package:money_manager/category_db/category_models.dart';
 import 'package:money_manager/config/constant_colors.dart';
-// import 'package:money_manager/user_db/user_db_fuctions.dart';
-// import 'package:money_manager/user_db/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../domain/categories/model/category_db_model.dart';
 import '../../../domain/user/model/user_model.dart';
-import '../../user_db/user_db_fuctions.dart';
-// import '../../user_db/user_model.dart';
 import '../homeScreen/common_scafforld_home.dart';
 import '../profilePage/notification_functions.dart';
 import '../splashScreen/app_splash_screen.dart';
@@ -20,24 +15,14 @@ import 'starting_screen_widgets.dart';
 
 TextEditingController nameController = TextEditingController();
 TextEditingController numberController = TextEditingController();
+GlobalKey<FormState> formKey3 = GlobalKey<FormState>();
 
-class StartScreen extends StatefulWidget {
+class StartScreen extends StatelessWidget {
   const StartScreen({Key? key}) : super(key: key);
 
   @override
-  State<StartScreen> createState() => _StartScreenState();
-}
-
-class _StartScreenState extends State<StartScreen> {
-  GlobalKey<FormState> formKey3 = GlobalKey<FormState>();
-  @override
-  void initState() {
-    addInitialCategories();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    addInitialCategories(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -107,10 +92,8 @@ class _StartScreenState extends State<StartScreen> {
                             );
                             BlocProvider.of<UserDetailsBloc>(context)
                                 .add(UserDetailsEvent.addUser(model: model));
-                            // addUser(model);
                             var isloged = await Hive.openBox('login_check');
                             isloged.put(userCheckKey, true);
-                            //await getUserDetials();
                             Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
                                 builder: (ctx) => HomeScreen(),
@@ -140,14 +123,15 @@ class _StartScreenState extends State<StartScreen> {
   }
 }
 
-Future<void> addInitialCategories() async {
+Future<void> addInitialCategories(context) async {
   for (int i = 0; i < categories.length; i++) {
     CategoryModel model = CategoryModel(
       id: DateTime.now().millisecond,
       category: categories[i],
       type: i < 11 ? Categorytype.expense : Categorytype.income,
     );
-    await CategoryDb.instance.addCategory(model);
+    BlocProvider.of<CategoriesBloc>(context)
+        .add(CategoriesEvent.addCategory(category: model));
   }
 }
 

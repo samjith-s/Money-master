@@ -25,11 +25,11 @@ class AddPageDropDown extends StatelessWidget {
             _list = state.groupValueRadio == Categorytype.income
                 ? state.incomeCategorieList
                     .where((element) => element.category
-                        .contains(state.categoryDropValue ?? ''))
+                        .contains(state.categoryDropValue ?? '*'))
                     .toList()
                 : state.expenseCategorieList
                     .where((element) => element.category
-                        .contains(state.categoryDropValue ?? ''))
+                        .contains(state.categoryDropValue ?? '*'))
                     .toList();
             return DropdownButton<String>(
               borderRadius: BorderRadius.circular(10),

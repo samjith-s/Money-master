@@ -21,6 +21,8 @@ mixin _$AllrounderEvent {
     required TResult Function(int pageIndex) navigate,
     required TResult Function(bool visibility) changeDateHintvisibility,
     required TResult Function(bool visibility) changeSearchBarVisibility,
+    required TResult Function(bool isNotificationOn) turnOnNotification,
+    required TResult Function(bool isApplockenabled) turnOnApplock,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +30,8 @@ mixin _$AllrounderEvent {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +39,8 @@ mixin _$AllrounderEvent {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -45,6 +51,8 @@ mixin _$AllrounderEvent {
         changeDateHintvisibility,
     required TResult Function(ChangeSearchBarVisibility value)
         changeSearchBarVisibility,
+    required TResult Function(TurnOnNotification value) turnOnNotification,
+    required TResult Function(TurnOnApplock value) turnOnApplock,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +61,8 @@ mixin _$AllrounderEvent {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +71,8 @@ mixin _$AllrounderEvent {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -149,6 +161,8 @@ class _$Navigate implements Navigate {
     required TResult Function(int pageIndex) navigate,
     required TResult Function(bool visibility) changeDateHintvisibility,
     required TResult Function(bool visibility) changeSearchBarVisibility,
+    required TResult Function(bool isNotificationOn) turnOnNotification,
+    required TResult Function(bool isApplockenabled) turnOnApplock,
   }) {
     return navigate(pageIndex);
   }
@@ -159,6 +173,8 @@ class _$Navigate implements Navigate {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
   }) {
     return navigate?.call(pageIndex);
   }
@@ -169,6 +185,8 @@ class _$Navigate implements Navigate {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
     required TResult orElse(),
   }) {
     if (navigate != null) {
@@ -185,6 +203,8 @@ class _$Navigate implements Navigate {
         changeDateHintvisibility,
     required TResult Function(ChangeSearchBarVisibility value)
         changeSearchBarVisibility,
+    required TResult Function(TurnOnNotification value) turnOnNotification,
+    required TResult Function(TurnOnApplock value) turnOnApplock,
   }) {
     return navigate(this);
   }
@@ -196,6 +216,8 @@ class _$Navigate implements Navigate {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
   }) {
     return navigate?.call(this);
   }
@@ -207,6 +229,8 @@ class _$Navigate implements Navigate {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
     required TResult orElse(),
   }) {
     if (navigate != null) {
@@ -297,6 +321,8 @@ class _$ChangeDateHintvisibility implements ChangeDateHintvisibility {
     required TResult Function(int pageIndex) navigate,
     required TResult Function(bool visibility) changeDateHintvisibility,
     required TResult Function(bool visibility) changeSearchBarVisibility,
+    required TResult Function(bool isNotificationOn) turnOnNotification,
+    required TResult Function(bool isApplockenabled) turnOnApplock,
   }) {
     return changeDateHintvisibility(visibility);
   }
@@ -307,6 +333,8 @@ class _$ChangeDateHintvisibility implements ChangeDateHintvisibility {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
   }) {
     return changeDateHintvisibility?.call(visibility);
   }
@@ -317,6 +345,8 @@ class _$ChangeDateHintvisibility implements ChangeDateHintvisibility {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
     required TResult orElse(),
   }) {
     if (changeDateHintvisibility != null) {
@@ -333,6 +363,8 @@ class _$ChangeDateHintvisibility implements ChangeDateHintvisibility {
         changeDateHintvisibility,
     required TResult Function(ChangeSearchBarVisibility value)
         changeSearchBarVisibility,
+    required TResult Function(TurnOnNotification value) turnOnNotification,
+    required TResult Function(TurnOnApplock value) turnOnApplock,
   }) {
     return changeDateHintvisibility(this);
   }
@@ -344,6 +376,8 @@ class _$ChangeDateHintvisibility implements ChangeDateHintvisibility {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
   }) {
     return changeDateHintvisibility?.call(this);
   }
@@ -355,6 +389,8 @@ class _$ChangeDateHintvisibility implements ChangeDateHintvisibility {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
     required TResult orElse(),
   }) {
     if (changeDateHintvisibility != null) {
@@ -446,6 +482,8 @@ class _$ChangeSearchBarVisibility implements ChangeSearchBarVisibility {
     required TResult Function(int pageIndex) navigate,
     required TResult Function(bool visibility) changeDateHintvisibility,
     required TResult Function(bool visibility) changeSearchBarVisibility,
+    required TResult Function(bool isNotificationOn) turnOnNotification,
+    required TResult Function(bool isApplockenabled) turnOnApplock,
   }) {
     return changeSearchBarVisibility(visibility);
   }
@@ -456,6 +494,8 @@ class _$ChangeSearchBarVisibility implements ChangeSearchBarVisibility {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
   }) {
     return changeSearchBarVisibility?.call(visibility);
   }
@@ -466,6 +506,8 @@ class _$ChangeSearchBarVisibility implements ChangeSearchBarVisibility {
     TResult Function(int pageIndex)? navigate,
     TResult Function(bool visibility)? changeDateHintvisibility,
     TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
     required TResult orElse(),
   }) {
     if (changeSearchBarVisibility != null) {
@@ -482,6 +524,8 @@ class _$ChangeSearchBarVisibility implements ChangeSearchBarVisibility {
         changeDateHintvisibility,
     required TResult Function(ChangeSearchBarVisibility value)
         changeSearchBarVisibility,
+    required TResult Function(TurnOnNotification value) turnOnNotification,
+    required TResult Function(TurnOnApplock value) turnOnApplock,
   }) {
     return changeSearchBarVisibility(this);
   }
@@ -493,6 +537,8 @@ class _$ChangeSearchBarVisibility implements ChangeSearchBarVisibility {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
   }) {
     return changeSearchBarVisibility?.call(this);
   }
@@ -504,6 +550,8 @@ class _$ChangeSearchBarVisibility implements ChangeSearchBarVisibility {
     TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
     TResult Function(ChangeSearchBarVisibility value)?
         changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
     required TResult orElse(),
   }) {
     if (changeSearchBarVisibility != null) {
@@ -524,10 +572,329 @@ abstract class ChangeSearchBarVisibility implements AllrounderEvent {
 }
 
 /// @nodoc
+abstract class _$$TurnOnNotificationCopyWith<$Res> {
+  factory _$$TurnOnNotificationCopyWith(_$TurnOnNotification value,
+          $Res Function(_$TurnOnNotification) then) =
+      __$$TurnOnNotificationCopyWithImpl<$Res>;
+  $Res call({bool isNotificationOn});
+}
+
+/// @nodoc
+class __$$TurnOnNotificationCopyWithImpl<$Res>
+    extends _$AllrounderEventCopyWithImpl<$Res>
+    implements _$$TurnOnNotificationCopyWith<$Res> {
+  __$$TurnOnNotificationCopyWithImpl(
+      _$TurnOnNotification _value, $Res Function(_$TurnOnNotification) _then)
+      : super(_value, (v) => _then(v as _$TurnOnNotification));
+
+  @override
+  _$TurnOnNotification get _value => super._value as _$TurnOnNotification;
+
+  @override
+  $Res call({
+    Object? isNotificationOn = freezed,
+  }) {
+    return _then(_$TurnOnNotification(
+      isNotificationOn: isNotificationOn == freezed
+          ? _value.isNotificationOn
+          : isNotificationOn // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$TurnOnNotification implements TurnOnNotification {
+  const _$TurnOnNotification({required this.isNotificationOn});
+
+  @override
+  final bool isNotificationOn;
+
+  @override
+  String toString() {
+    return 'AllrounderEvent.turnOnNotification(isNotificationOn: $isNotificationOn)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TurnOnNotification &&
+            const DeepCollectionEquality()
+                .equals(other.isNotificationOn, isNotificationOn));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(isNotificationOn));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$TurnOnNotificationCopyWith<_$TurnOnNotification> get copyWith =>
+      __$$TurnOnNotificationCopyWithImpl<_$TurnOnNotification>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int pageIndex) navigate,
+    required TResult Function(bool visibility) changeDateHintvisibility,
+    required TResult Function(bool visibility) changeSearchBarVisibility,
+    required TResult Function(bool isNotificationOn) turnOnNotification,
+    required TResult Function(bool isApplockenabled) turnOnApplock,
+  }) {
+    return turnOnNotification(isNotificationOn);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int pageIndex)? navigate,
+    TResult Function(bool visibility)? changeDateHintvisibility,
+    TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
+  }) {
+    return turnOnNotification?.call(isNotificationOn);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int pageIndex)? navigate,
+    TResult Function(bool visibility)? changeDateHintvisibility,
+    TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
+    required TResult orElse(),
+  }) {
+    if (turnOnNotification != null) {
+      return turnOnNotification(isNotificationOn);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Navigate value) navigate,
+    required TResult Function(ChangeDateHintvisibility value)
+        changeDateHintvisibility,
+    required TResult Function(ChangeSearchBarVisibility value)
+        changeSearchBarVisibility,
+    required TResult Function(TurnOnNotification value) turnOnNotification,
+    required TResult Function(TurnOnApplock value) turnOnApplock,
+  }) {
+    return turnOnNotification(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Navigate value)? navigate,
+    TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
+    TResult Function(ChangeSearchBarVisibility value)?
+        changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
+  }) {
+    return turnOnNotification?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Navigate value)? navigate,
+    TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
+    TResult Function(ChangeSearchBarVisibility value)?
+        changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
+    required TResult orElse(),
+  }) {
+    if (turnOnNotification != null) {
+      return turnOnNotification(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TurnOnNotification implements AllrounderEvent {
+  const factory TurnOnNotification({required final bool isNotificationOn}) =
+      _$TurnOnNotification;
+
+  bool get isNotificationOn => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$TurnOnNotificationCopyWith<_$TurnOnNotification> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TurnOnApplockCopyWith<$Res> {
+  factory _$$TurnOnApplockCopyWith(
+          _$TurnOnApplock value, $Res Function(_$TurnOnApplock) then) =
+      __$$TurnOnApplockCopyWithImpl<$Res>;
+  $Res call({bool isApplockenabled});
+}
+
+/// @nodoc
+class __$$TurnOnApplockCopyWithImpl<$Res>
+    extends _$AllrounderEventCopyWithImpl<$Res>
+    implements _$$TurnOnApplockCopyWith<$Res> {
+  __$$TurnOnApplockCopyWithImpl(
+      _$TurnOnApplock _value, $Res Function(_$TurnOnApplock) _then)
+      : super(_value, (v) => _then(v as _$TurnOnApplock));
+
+  @override
+  _$TurnOnApplock get _value => super._value as _$TurnOnApplock;
+
+  @override
+  $Res call({
+    Object? isApplockenabled = freezed,
+  }) {
+    return _then(_$TurnOnApplock(
+      isApplockenabled: isApplockenabled == freezed
+          ? _value.isApplockenabled
+          : isApplockenabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$TurnOnApplock implements TurnOnApplock {
+  const _$TurnOnApplock({required this.isApplockenabled});
+
+  @override
+  final bool isApplockenabled;
+
+  @override
+  String toString() {
+    return 'AllrounderEvent.turnOnApplock(isApplockenabled: $isApplockenabled)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TurnOnApplock &&
+            const DeepCollectionEquality()
+                .equals(other.isApplockenabled, isApplockenabled));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(isApplockenabled));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$TurnOnApplockCopyWith<_$TurnOnApplock> get copyWith =>
+      __$$TurnOnApplockCopyWithImpl<_$TurnOnApplock>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int pageIndex) navigate,
+    required TResult Function(bool visibility) changeDateHintvisibility,
+    required TResult Function(bool visibility) changeSearchBarVisibility,
+    required TResult Function(bool isNotificationOn) turnOnNotification,
+    required TResult Function(bool isApplockenabled) turnOnApplock,
+  }) {
+    return turnOnApplock(isApplockenabled);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int pageIndex)? navigate,
+    TResult Function(bool visibility)? changeDateHintvisibility,
+    TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
+  }) {
+    return turnOnApplock?.call(isApplockenabled);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int pageIndex)? navigate,
+    TResult Function(bool visibility)? changeDateHintvisibility,
+    TResult Function(bool visibility)? changeSearchBarVisibility,
+    TResult Function(bool isNotificationOn)? turnOnNotification,
+    TResult Function(bool isApplockenabled)? turnOnApplock,
+    required TResult orElse(),
+  }) {
+    if (turnOnApplock != null) {
+      return turnOnApplock(isApplockenabled);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Navigate value) navigate,
+    required TResult Function(ChangeDateHintvisibility value)
+        changeDateHintvisibility,
+    required TResult Function(ChangeSearchBarVisibility value)
+        changeSearchBarVisibility,
+    required TResult Function(TurnOnNotification value) turnOnNotification,
+    required TResult Function(TurnOnApplock value) turnOnApplock,
+  }) {
+    return turnOnApplock(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Navigate value)? navigate,
+    TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
+    TResult Function(ChangeSearchBarVisibility value)?
+        changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
+  }) {
+    return turnOnApplock?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Navigate value)? navigate,
+    TResult Function(ChangeDateHintvisibility value)? changeDateHintvisibility,
+    TResult Function(ChangeSearchBarVisibility value)?
+        changeSearchBarVisibility,
+    TResult Function(TurnOnNotification value)? turnOnNotification,
+    TResult Function(TurnOnApplock value)? turnOnApplock,
+    required TResult orElse(),
+  }) {
+    if (turnOnApplock != null) {
+      return turnOnApplock(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TurnOnApplock implements AllrounderEvent {
+  const factory TurnOnApplock({required final bool isApplockenabled}) =
+      _$TurnOnApplock;
+
+  bool get isApplockenabled => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$TurnOnApplockCopyWith<_$TurnOnApplock> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$AllrounderState {
   bool get showHomeScreenSearchBar => throw _privateConstructorUsedError;
   bool get showHomeDatePickerHint => throw _privateConstructorUsedError;
   int get bottomNavIndex => throw _privateConstructorUsedError;
+  bool get isNotificationOn => throw _privateConstructorUsedError;
+  bool get isApplockenabled => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AllrounderStateCopyWith<AllrounderState> get copyWith =>
@@ -542,7 +909,9 @@ abstract class $AllrounderStateCopyWith<$Res> {
   $Res call(
       {bool showHomeScreenSearchBar,
       bool showHomeDatePickerHint,
-      int bottomNavIndex});
+      int bottomNavIndex,
+      bool isNotificationOn,
+      bool isApplockenabled});
 }
 
 /// @nodoc
@@ -559,6 +928,8 @@ class _$AllrounderStateCopyWithImpl<$Res>
     Object? showHomeScreenSearchBar = freezed,
     Object? showHomeDatePickerHint = freezed,
     Object? bottomNavIndex = freezed,
+    Object? isNotificationOn = freezed,
+    Object? isApplockenabled = freezed,
   }) {
     return _then(_value.copyWith(
       showHomeScreenSearchBar: showHomeScreenSearchBar == freezed
@@ -573,6 +944,14 @@ class _$AllrounderStateCopyWithImpl<$Res>
           ? _value.bottomNavIndex
           : bottomNavIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isNotificationOn: isNotificationOn == freezed
+          ? _value.isNotificationOn
+          : isNotificationOn // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isApplockenabled: isApplockenabled == freezed
+          ? _value.isApplockenabled
+          : isApplockenabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -587,7 +966,9 @@ abstract class _$$_AllrounderStateCopyWith<$Res>
   $Res call(
       {bool showHomeScreenSearchBar,
       bool showHomeDatePickerHint,
-      int bottomNavIndex});
+      int bottomNavIndex,
+      bool isNotificationOn,
+      bool isApplockenabled});
 }
 
 /// @nodoc
@@ -606,6 +987,8 @@ class __$$_AllrounderStateCopyWithImpl<$Res>
     Object? showHomeScreenSearchBar = freezed,
     Object? showHomeDatePickerHint = freezed,
     Object? bottomNavIndex = freezed,
+    Object? isNotificationOn = freezed,
+    Object? isApplockenabled = freezed,
   }) {
     return _then(_$_AllrounderState(
       showHomeScreenSearchBar: showHomeScreenSearchBar == freezed
@@ -620,6 +1003,14 @@ class __$$_AllrounderStateCopyWithImpl<$Res>
           ? _value.bottomNavIndex
           : bottomNavIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isNotificationOn: isNotificationOn == freezed
+          ? _value.isNotificationOn
+          : isNotificationOn // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isApplockenabled: isApplockenabled == freezed
+          ? _value.isApplockenabled
+          : isApplockenabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -630,7 +1021,9 @@ class _$_AllrounderState implements _AllrounderState {
   const _$_AllrounderState(
       {required this.showHomeScreenSearchBar,
       required this.showHomeDatePickerHint,
-      required this.bottomNavIndex});
+      required this.bottomNavIndex,
+      required this.isNotificationOn,
+      required this.isApplockenabled});
 
   @override
   final bool showHomeScreenSearchBar;
@@ -638,10 +1031,14 @@ class _$_AllrounderState implements _AllrounderState {
   final bool showHomeDatePickerHint;
   @override
   final int bottomNavIndex;
+  @override
+  final bool isNotificationOn;
+  @override
+  final bool isApplockenabled;
 
   @override
   String toString() {
-    return 'AllrounderState(showHomeScreenSearchBar: $showHomeScreenSearchBar, showHomeDatePickerHint: $showHomeDatePickerHint, bottomNavIndex: $bottomNavIndex)';
+    return 'AllrounderState(showHomeScreenSearchBar: $showHomeScreenSearchBar, showHomeDatePickerHint: $showHomeDatePickerHint, bottomNavIndex: $bottomNavIndex, isNotificationOn: $isNotificationOn, isApplockenabled: $isApplockenabled)';
   }
 
   @override
@@ -654,7 +1051,11 @@ class _$_AllrounderState implements _AllrounderState {
             const DeepCollectionEquality()
                 .equals(other.showHomeDatePickerHint, showHomeDatePickerHint) &&
             const DeepCollectionEquality()
-                .equals(other.bottomNavIndex, bottomNavIndex));
+                .equals(other.bottomNavIndex, bottomNavIndex) &&
+            const DeepCollectionEquality()
+                .equals(other.isNotificationOn, isNotificationOn) &&
+            const DeepCollectionEquality()
+                .equals(other.isApplockenabled, isApplockenabled));
   }
 
   @override
@@ -662,7 +1063,9 @@ class _$_AllrounderState implements _AllrounderState {
       runtimeType,
       const DeepCollectionEquality().hash(showHomeScreenSearchBar),
       const DeepCollectionEquality().hash(showHomeDatePickerHint),
-      const DeepCollectionEquality().hash(bottomNavIndex));
+      const DeepCollectionEquality().hash(bottomNavIndex),
+      const DeepCollectionEquality().hash(isNotificationOn),
+      const DeepCollectionEquality().hash(isApplockenabled));
 
   @JsonKey(ignore: true)
   @override
@@ -674,7 +1077,9 @@ abstract class _AllrounderState implements AllrounderState {
   const factory _AllrounderState(
       {required final bool showHomeScreenSearchBar,
       required final bool showHomeDatePickerHint,
-      required final int bottomNavIndex}) = _$_AllrounderState;
+      required final int bottomNavIndex,
+      required final bool isNotificationOn,
+      required final bool isApplockenabled}) = _$_AllrounderState;
 
   @override
   bool get showHomeScreenSearchBar => throw _privateConstructorUsedError;
@@ -682,6 +1087,10 @@ abstract class _AllrounderState implements AllrounderState {
   bool get showHomeDatePickerHint => throw _privateConstructorUsedError;
   @override
   int get bottomNavIndex => throw _privateConstructorUsedError;
+  @override
+  bool get isNotificationOn => throw _privateConstructorUsedError;
+  @override
+  bool get isApplockenabled => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_AllrounderStateCopyWith<_$_AllrounderState> get copyWith =>

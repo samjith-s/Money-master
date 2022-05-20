@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -19,21 +19,33 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   final TransationServices _transationServices;
   TransactionsBloc(this._transationServices)
       : super(TransactionsState.initial()) {
+
+    //adding a new transaction to the database
     on<AddTransaction>((event, emit) async {
       await _transationServices.addTransction(transaction: event.model);
       add(const TransactionsEvent.getAllTransactions());
     });
+
+    //deleting a transaction from the database
     on<DeleteTransaction>((event, emit) async {
       await _transationServices.deleteTransaction(id: event.id);
+      int count = 0;
+      Navigator.of(event.context).popUntil((_) => count++ >= 2);
       add(const TransactionsEvent.getAllTransactions());
     });
+
+    //updateing a specific transaction model in the database 
     on<UpdateTransaction>((event, emit) async {
       await _transationServices.addTransction(transaction: event.newModel);
       add(const TransactionsEvent.getAllTransactions());
     });
+
+    //taking all the transactions from the database, sorting it and emit to the state
     on<GetAllTransactions>((event, emit) async {
       List<TransactionModel> dbValues =
           await _transationServices.getAllTransactions();
+      dbValues.sort((first, second) => second.date.compareTo(first.date));
+      //updating account balance when any operation has done
       AccountModel account = await _transationServices.updateBal(
           transactions: dbValues, period: 'All time');
       emit(state.copyWith(
@@ -43,6 +55,8 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
         showFilterList: false,
       ));
     });
+
+    //filtering the state transaction list and assining the values to states filter list when homepage filter dropdown value changes
     on<FilterTransactions>(
       (event, emit) async {
         List<TransactionModel> filterResult =
@@ -57,10 +71,13 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
             showFilterList: true));
       },
     );
+
+    //changing home page filter dropdown value
     on<ChangeFilterDDValue>(((event, emit) {
       emit(state.copyWith(filterDropdownValue: event.newValue));
     }));
 
+    //updating filter list according to selected date period
     on<FilterByPeriod>(
       (event, emit) async {
         List<TransactionModel> filterResult =
@@ -84,7 +101,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
         );
       },
     );
-
+    //CHANGING STATE FILTER LIST WHEN SEARCH HAPPENS IN HOMEPAGE
     on<SearchTransaction>(((event, emit) {
       List<TransactionModel> searchResult =
           _transationServices.searchTransaction(

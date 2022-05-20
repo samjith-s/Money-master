@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money_manager/config/constant_colors.dart';
-// import 'package:money_manager/screens/splashScreen/app_splash_screen.dart';
 import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/passcode_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../application/allrounder/allrounder_bloc.dart';
 import 'splashScreen/app_splash_screen.dart';
 
 final StreamController<bool> verificationNotifier =
@@ -50,7 +50,6 @@ showLockScreen(BuildContext context,
         },
         digits: digits,
         passwordDigits: 6,
-        // bottomWidget: passcodeRestoreButton(context),
       ),
     ),
   );
@@ -71,8 +70,11 @@ passcodeCancelled(context) {
 final StreamController<bool> verificationNotifier1 =
     StreamController<bool>.broadcast();
 
-setPasscodeScreen(BuildContext context,
-    {required bool opaque, List<String>? digits, changevalue}) async {
+setPasscodeScreen(
+  BuildContext context, {
+  required bool opaque,
+  List<String>? digits,
+}) async {
   Navigator.push(
     context,
     PageRouteBuilder(
@@ -81,6 +83,8 @@ setPasscodeScreen(BuildContext context,
         isValidCallback: () async {
           SharedPreferences _pref = await SharedPreferences.getInstance();
           _pref.setString('password', passwordNotifier.value);
+          BlocProvider.of<AllrounderBloc>(context)
+              .add(const TurnOnApplock(isApplockenabled: true));
           error = '';
         },
         title: ValueListenableBuilder(
@@ -111,7 +115,7 @@ setPasscodeScreen(BuildContext context,
         shouldTriggerVerification: verificationNotifier1.stream,
         backgroundColor: Colors.black.withOpacity(0.8),
         cancelCallback: () {
-          setpasscodeCancelled(context, changevalue);
+          setpasscodeCancelled(context);
         },
         digits: digits,
         passwordDigits: 6,
@@ -150,9 +154,8 @@ setpasscodeEntered(String enteredPasscode) {
   if (isValid) {}
 }
 
-setpasscodeCancelled(context, changevalue) {
+setpasscodeCancelled(context) {
   Navigator.maybePop(context);
-  changevalue(false);
   passwordNotifier.value = '';
   error = null;
 }
